@@ -18,7 +18,6 @@ class Strings {
     }
   }
 
-
   /// true if the [value] is null, or is a zero length String
   static bool isEmpty(String? value) {
     if (value == null) {
@@ -31,7 +30,6 @@ class Strings {
   static bool isNotEmpty(String? value) {
     return !isEmpty(value);
   }
-
 
   /// true if the [value] is null or Blank.
   /// Whitespace is ignored
