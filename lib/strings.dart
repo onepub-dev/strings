@@ -1,1 +1,2 @@
-export 'src/implementation.dart';
+export 'src/exceptions.dart';
+export 'src/strings.dart';

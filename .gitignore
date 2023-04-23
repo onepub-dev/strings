@@ -8,3 +8,4 @@ build/
 # Directory created by dartdoc
 doc/api/
 .failed_tracker
+.history

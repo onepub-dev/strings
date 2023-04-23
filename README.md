@@ -189,6 +189,22 @@ if both are the same returns true.
 
 
 
+Currently supports the following methods:
+
+- camelize
+- capitalize
+- escape
+- isLowerCase
+- isUpperCase
+- join
+- printable
+- reverse
+- startsWithLowerCase
+- startsWithUpperCase
+- toUnicode
+- underscore
+
+Other useful methods will be added soon...
 
 
 
