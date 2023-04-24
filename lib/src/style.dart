@@ -6,12 +6,194 @@ import 'package:unicode/unicode.dart' as unicode;
 import 'consts.dart';
 
 class Style {
+  /// toLowerCase
+  static bool isLowerCase(String? string) {
+    if (string == null) {
+      return true;
+    }
+    if (string.isEmpty) {
+      return true;
+    }
+
+    final characters = Characters(string);
+    for (final s in characters) {
+      final runes = s.runes;
+      if (runes.length == 1) {
+        final c = runes.first;
+        var flag = 0;
+        if (c <= asciiEnd) {
+          flag = ascii[c];
+        }
+
+        if (c <= asciiEnd) {
+          if (flag & upperMask != 0) {
+            return false;
+          }
+        } else {
+          if (s == s.toUpperCase()) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+
+// TODO: Improve list of printable characters
+  static bool isPrintable(int? character) {
+    if (character == null) {
+      return false;
+    }
+    switch (unicode.generalCategories[character]) {
+      case unicode.CONTROL:
+      case unicode.FORMAT:
+      case unicode.LINE_SEPARATOR:
+      case unicode.NOT_ASSIGNED:
+      case unicode.PARAGRAPH_SEPARATOR:
+      case unicode.PRIVATE_USE:
+      case unicode.SURROGATE:
+        return false;
+      default:
+        return true;
+    }
+  }
+
+  /// Returns true if the string does not contain lower case letters
+  ///
+  /// Example:
+  ///     print(isUpperCase("CamelCase"));
+  ///     => false
+  ///
+  ///     print(isUpperCase("DART"));
+  ///     => true
+  ///
+  ///     print(isUpperCase(""));
+  ///     => false
+  static bool isUpperCase(String? value) {
+    if (value == null) {
+      return true;
+    }
+    if (value.isEmpty) {
+      return true;
+    }
+
+    final characters = Characters(value);
+    for (final s in characters) {
+      final runes = s.runes;
+      if (runes.length == 1) {
+        final c = runes.first;
+        var flag = 0;
+        if (c <= asciiEnd) {
+          flag = ascii[c];
+        }
+
+        if (c <= asciiEnd) {
+          if (flag & lowerMask != 0) {
+            return false;
+          }
+        } else {
+          if (s == s.toLowerCase()) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+
+  /// Returns true if the string starts with the lower case character; otherwise
+  /// false;
+  ///
+  /// Example:
+  ///     print(startsWithLowerCase("camelCase"));
+  ///     => true
+  ///
+  ///     print(startsWithLowerCase(""));
+  ///     => false
+  static bool startsWithLowerCase(String? string) {
+    if (string == null) {
+      return false;
+    }
+    if (string.isEmpty) {
+      return false;
+    }
+
+    final characters = Characters(string);
+    final s = characters.first;
+    final runes = s.runes;
+    if (runes.length == 1) {
+      final c = runes.first;
+      var flag = 0;
+      if (c <= asciiEnd) {
+        flag = ascii[c];
+      }
+
+      if (c <= asciiEnd) {
+        if (flag & lowerMask != 0) {
+          return true;
+        }
+      } else {
+        if (s == s.toLowerCase()) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /// Returns true if [value]] starts with the upper case character; otherwise
+  /// false;
+  ///
+  /// Example:
+  ///     print(startsWithUpperCase("Dart"));
+  ///     => true
+  ///
+  ///     print(startsWithUpperCase(""));
+  ///     => false
+  static bool startsWithUpperCase(String? value) {
+    if (value == null) {
+      return false;
+    }
+    if (value.isEmpty) {
+      return false;
+    }
+
+    final characters = Characters(value);
+    final s = characters.first;
+    final runes = s.runes;
+    if (runes.length == 1) {
+      final c = runes.first;
+      var flag = 0;
+      if (c <= asciiEnd) {
+        flag = ascii[c];
+      }
+
+      if (c <= asciiEnd) {
+        if (flag & upperMask != 0) {
+          return true;
+        }
+      } else {
+        if (s == s.toUpperCase()) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
   /// Returns a string in the form "UpperCamelCase" or "lowerCamelCase".
   ///
   /// Example:
   ///      print(camelize("dart_vm"));
   ///      => DartVm
-  static String toCamelCase(String value, {bool lower = false}) {
+  static String toCamelCase(String? value, {bool lower = false}) {
+    if (value == null) {
+      return '';
+    }
     if (value.isEmpty) {
       return value;
     }
@@ -67,13 +249,20 @@ class Style {
 
     return sb.toString();
   }
+  // toCapitalised
+  static String toCapitalised(String? string) {
+    if (string == null || string.isEmpty) {
+      return '';
+    }
 
-  /// toCamelCaseForNull
-  static String toCamelCaseForNull(String? value, {bool lower = false}) =>
-      value == null ? '' : toCamelCase(value, lower: lower);
+    return string[0].toUpperCase() + string.substring(1);
+  }
 
   /// toPropoerCase
-  static String toProperCase(String sentence) {
+  static String toProperCase(String? sentence) {
+    if (sentence == null) {
+      return '';
+    }
     final words = sentence.split(' ');
     var result = '';
 
@@ -88,176 +277,10 @@ class Style {
     return result;
   }
 
-  /// toPropoerCaseForNull
-  static String toProperCaseForNull(String? sentence) =>
-      toProperCase(sentence ?? '');
-
-  /// toLowerCase
-  static bool isLowerCase(String string) {
-    if (string.isEmpty) {
-      return true;
-    }
-
-    final characters = Characters(string);
-    for (final s in characters) {
-      final runes = s.runes;
-      if (runes.length == 1) {
-        final c = runes.first;
-        var flag = 0;
-        if (c <= asciiEnd) {
-          flag = ascii[c];
-        }
-
-        if (c <= asciiEnd) {
-          if (flag & upperMask != 0) {
-            return false;
-          }
-        } else {
-          if (s == s.toUpperCase()) {
-            return false;
-          }
-        }
-      }
-    }
-
-    return true;
-  }
-
-  static bool isLowerCaseForNull(String? string) =>
-      string == null || isLowerCase(string);
-
-  /// Returns true if the string does not contain lower case letters
-  ///
-  /// Example:
-  ///     print(isUpperCase("CamelCase"));
-  ///     => false
-  ///
-  ///     print(isUpperCase("DART"));
-  ///     => true
-  ///
-  ///     print(isUpperCase(""));
-  ///     => false
-  static bool isUpperCase(String value) {
-    if (value.isEmpty) {
-      return true;
-    }
-
-    final characters = Characters(value);
-    for (final s in characters) {
-      final runes = s.runes;
-      if (runes.length == 1) {
-        final c = runes.first;
-        var flag = 0;
-        if (c <= asciiEnd) {
-          flag = ascii[c];
-        }
-
-        if (c <= asciiEnd) {
-          if (flag & lowerMask != 0) {
-            return false;
-          }
-        } else {
-          if (s == s.toLowerCase()) {
-            return false;
-          }
-        }
-      }
-    }
-
-    return true;
-  }
-
-  static bool isUpperCaseForNull(String? string) =>
-      string == null || isUpperCase(string);
-
-  /// Returns true if the string starts with the lower case character; otherwise
-  /// false;
-  ///
-  /// Example:
-  ///     print(startsWithLowerCase("camelCase"));
-  ///     => true
-  ///
-  ///     print(startsWithLowerCase(""));
-  ///     => false
-  static bool startsWithLowerCase(String value) {
-    if (value.isEmpty) {
-      return false;
-    }
-
-    final characters = Characters(value);
-    final s = characters.first;
-    final runes = s.runes;
-    if (runes.length == 1) {
-      final c = runes.first;
-      var flag = 0;
-      if (c <= asciiEnd) {
-        flag = ascii[c];
-      }
-
-      if (c <= asciiEnd) {
-        if (flag & lowerMask != 0) {
-          return true;
-        }
-      } else {
-        if (s == s.toLowerCase()) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  //
-  static bool startsWithLowerCaseForNull(String? value) =>
-      value != null && startsWithLowerCase(value);
-
-  /// Returns true if [value]] starts with the upper case character; otherwise
-  /// false;
-  ///
-  /// Example:
-  ///     print(startsWithUpperCase("Dart"));
-  ///     => true
-  ///
-  ///     print(startsWithUpperCase(""));
-  ///     => false
-  static bool startsWithUpperCase(String value) {
-    if (value.isEmpty) {
-      return false;
-    }
-
-    final characters = Characters(value);
-    final s = characters.first;
-    final runes = s.runes;
-    if (runes.length == 1) {
-      final c = runes.first;
-      var flag = 0;
-      if (c <= asciiEnd) {
-        flag = ascii[c];
-      }
-
-      if (c <= asciiEnd) {
-        if (flag & upperMask != 0) {
-          return true;
-        }
-      } else {
-        if (s == s.toUpperCase()) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  //
-  static bool startsWithUpperCaseForNull(String? value) =>
-      value != null && startsWithLowerCaseForNull(value);
-
-  //
-  static String toSnakeCase(String string) {
-    if (string.isEmpty) {
-      return string;
+// toSnakeCase
+  static String toSnakeCase(String? string) {
+    if (string == null || string.isEmpty) {
+      return '';
     }
 
     final sb = StringBuffer();
@@ -293,28 +316,4 @@ class Style {
 
     return sb.toString();
   }
-
-  //
-  static String toSnakeCaseForNull(String? string) =>
-      string == null ? '' : toSnakeCase(string);
-
-// TODO: Optimize via table
-// TODO: Improve list of printable characters
-  static bool isPrintable(int character) {
-    switch (unicode.generalCategories[character]) {
-      case unicode.CONTROL:
-      case unicode.FORMAT:
-      case unicode.LINE_SEPARATOR:
-      case unicode.NOT_ASSIGNED:
-      case unicode.PARAGRAPH_SEPARATOR:
-      case unicode.PRIVATE_USE:
-      case unicode.SURROGATE:
-        return false;
-      default:
-        return true;
-    }
-  }
-
-  static bool isPrintableForNull(int? character) =>
-      character != null && isPrintable(character);
 }

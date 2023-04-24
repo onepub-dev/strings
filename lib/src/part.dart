@@ -1,91 +1,44 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
-import '../strings.dart';
-import 'exceptions.dart';
+enum Pad { left, right, none }
 
 class Part {
-  /// Returns all characters from value starting at [fromRight] inclusive.
-  /// If [fromRight] is outside the bounds of [value] then an
-  /// [RangeError] is thrown.
-  static String right(String value, int fromRight) =>
-      value.substring(fromRight);
-
-  /// Returns all characters from value starting at [fromRight] inclusive.
-  /// If [fromRight] is null then an empty string is returned.
-  /// If [fromRight] is outside the bounds of [value] then an
-  /// [RangeError] is thrown.
-  static String rightForNull(String? value, int fromRight) =>
-      right(value ?? '', fromRight);
-
-  /// Returns the first [fromLeft] characters from [value]
-  /// If [fromLeft] is longer than [value] then an
-  /// [RangeError] is thrown.
-  static String left(String value, int fromLeft) =>
-      value.substring(0, fromLeft);
-
-  /// Returns the first [fromLeft] characters from [value]
-  /// If [fromLeft] is longer than [value] then an
-  /// [RangeError] is thrown.
-  static String leftForNull(String? value, int fromLeft) =>
-      (value ?? '').substring(0, fromLeft);
-
   /// Abbreviate a string to [maxWidth] by truncating the
   /// string and adding '...' to then truncated string.
   /// ```
   /// Strings.abbreviate('Hello World', 6) == 'Hel...'
   /// ```
-  /// The minimum value for [maxWidth] is 4
-  static String abbreviate(String value, int maxWidth, {int offset = 0}) {
-    if (maxWidth < 4) {
-      throw IllegalArgumentException('Minimum abbreviation width is 4');
+  /// Pass an [offset] to to start the abbreviation from the given
+  /// [offset].  The returned string will included everything before
+  /// the offset plus as well as the abreviate text staring from the offset.
+  /// If [maxWidth] is less than 4 then we just truncate the string
+  /// to the given width.
+  /// If [string] is shorter than maxWidth we just return [string].
+  /// If [string] is null we return an empty string.
+  static String abbreviate(String? string, int maxWidth, {int offset = 0}) {
+    if (string == null) {
+      return '';
     }
-    if (value.length <= maxWidth) {
-      return value;
+    final length = string.length;
+    if (length <= maxWidth || maxWidth < 4) {
+      return string;
     }
-    if (offset > value.length) {
-      offset = value.length;
+    if (offset > length) {
+      offset = length;
     }
-    if (value.length - offset < maxWidth - 3) {
-      offset = value.length - (maxWidth - 3);
+    if (length - offset < maxWidth - 3) {
+      offset = length - (maxWidth - 3);
     }
     const abrevMarker = '...';
     if (offset <= 4) {
-      return value.substring(0, maxWidth - 3) + abrevMarker;
+      return string.substring(0, maxWidth - 3) + abrevMarker;
     }
-    if (maxWidth < 7) {
-      throw IllegalArgumentException(
-          'Minimum abbreviation width with offset is 7');
+
+    if (offset + maxWidth - 3 < length) {
+      return abrevMarker + abbreviate(string.substring(offset), maxWidth - 3);
     }
-    if (offset + maxWidth - 3 < value.length) {
-      return abrevMarker + abbreviate(value.substring(offset), maxWidth - 3);
-    }
-    return abrevMarker + value.substring(value.length - (maxWidth - 3));
+    return abrevMarker + string.substring(length - (maxWidth - 3));
   }
-
-  /// Abbreviate a string to [maxWidth] by truncating the
-  /// string and adding '...' to then truncated string.
-  /// If [value] is null an empty string is returned.
-  /// ```
-  /// Strings.abbreviate('Hello World', 6) == 'Hel...'
-  /// ```
-  /// The minimum value for [maxWidth] is 4
-  static String abbreviateForNull(String? value, int maxWidth,
-          {int offset = 0}) =>
-      abbreviate(value ?? '', maxWidth);
-
-  /// Returns the joined elements of the [list].
-  /// If the [list] is null then an empty String is returned.
-  ///
-  /// Example:
-  ///     print(join(null));
-  ///     => ''
-  ///
-  ///     print(join([1, 2]));
-  ///     => 12
-  ///     print(join([1, 2], separator: ','));
-  ///     => 1,2
-  static String join(List<Object>? list, {String separator = ''}) =>
-      list == null ? '' : list.join(separator);
 
   /// Returns the joined elements of the [list].
   /// If the [list] is null then an empty String is returned.
@@ -100,6 +53,52 @@ class Part {
   ///     => 12
   ///     print(join([1, 2], separator: ','));
   ///     => 1,2
-  static String joinForNull(List<Object?>? list, {String separator = ''}) =>
+  static String join(List<Object?>? list, {String separator = ''}) =>
       list == null ? '' : list.map((element) => element ?? '').join(separator);
+
+  /// Returns the first [len] characters from [string]
+  /// If [len] is longer than [string] then the result is padded
+  /// according to [pad]
+  static String left(String? string, int len, {Pad pad = Pad.none}) {
+    string ??= '';
+
+    final length = string.length;
+    if (length >= len) {
+      return string.substring(0, len);
+    }
+
+    final padLength = len - length;
+
+    switch (pad) {
+      case Pad.left:
+        return "${' ' * padLength}$string";
+      case Pad.right:
+        return "$string${' ' * padLength}";
+      case Pad.none:
+        return string;
+    }
+  }
+
+  /// Returns all characters from [string] starting at [take] inclusive.
+  /// If [take] is outside the bounds of [string] then padding
+  /// is applied according to [pad].
+  static String right(String? string, int take, {Pad pad = Pad.none}) {
+    string ??= '';
+
+    final length = string.length;
+    if (length >= take) {
+      return string.substring(length - take);
+    }
+
+    final padLength = take - length;
+
+    switch (pad) {
+      case Pad.left:
+        return "${' ' * padLength}$string";
+      case Pad.right:
+        return "$string${' ' * padLength}";
+      case Pad.none:
+        return string;
+    }
+  }
 }

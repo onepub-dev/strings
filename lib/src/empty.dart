@@ -12,16 +12,6 @@ class Empty {
   /// true if the [value] is not null and is not a zero length String
   static bool isNotEmpty(String? value) => !isEmpty(value);
 
-  /// If [value] is null we return a zero length string
-  /// otherwise we return [value].
-  static String toEmpty(String? value) {
-    if (value == null) {
-      return '';
-    } else {
-      return value;
-    }
-  }
-
   /// If [value] is not null, then return [value]
   /// If [value] is null the [elseValue] is returned
   /// Rather than using this function you could just call:
@@ -34,4 +24,14 @@ class Empty {
   /// value ?? elseValue();
   static String orElseCall(String? value, String Function() elseValue) =>
       value ?? elseValue();
+
+  /// If [value] is null we return a zero length string
+  /// otherwise we return [value].
+  static String toEmpty(String? value) {
+    if (value == null) {
+      return '';
+    } else {
+      return value;
+    }
+  }
 }

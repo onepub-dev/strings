@@ -83,10 +83,8 @@ otherwise [value] is returned.
 
 
 # right
-Returns all characters from [value] starting at [fromRight] inclusive.
+Returns [length]  characters from [value] starting from the right.
 
-If [fromRight] is outside the bounds of [value] then an
-[RangeError] is thrown.
 
 `String right(String value, int fromRight)`
 
@@ -188,23 +186,6 @@ if both are the same returns true.
 ```
 
 
-
-Currently supports the following methods:
-
-- camelize
-- capitalize
-- escape
-- isLowerCase
-- isUpperCase
-- join
-- printable
-- reverse
-- startsWithLowerCase
-- startsWithUpperCase
-- toUnicode
-- underscore
-
-Other useful methods will be added soon...
 
 
 

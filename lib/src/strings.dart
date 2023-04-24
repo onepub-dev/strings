@@ -2,9 +2,9 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
 import 'blank.dart';
-import 'case.dart';
 import 'empty.dart';
 import 'part.dart';
+import 'safe.dart';
 import 'style.dart';
 import 'transform.dart';
 import 'type.dart';
@@ -41,6 +41,9 @@ class Strings {
 
   /// Returns true if [string] does not contain upper case letters
   ///
+  /// If [string] is null then we return true.
+  ///
+  ///
   /// Example:
   ///     print(isLowerCase("camelCase"));
   ///     => false
@@ -50,29 +53,14 @@ class Strings {
   ///
   ///     print(isLowerCase(""));
   ///     => false
-  static bool isLowerCase(String string) => Style.isLowerCase(string);
+  ///
+  ///     print(isLowerCase(null));
+  ///     => false
+  static bool isLowerCase(String? string) => Style.isLowerCase(string);
 
-  /// Returns true if [string] does not contain upper case letters
+  /// Returns true if [string] does not contain any lower case letters.
   ///
-  /// If [string] is null then we return true.
-  ///
-  ///
-  /// Example:
-  ///     print(isLowerCaseForNull("camelCase"));
-  ///     => false
-  ///
-  ///     print(isLowerCaseForNull("dart"));
-  ///     => true
-  ///
-  ///     print(isLowerCaseForNull(""));
-  ///     => false
-  ///
-  ///     print(isLowerCaseForNull(null));
-  ///     => false
-  static bool isLowerCaseForNull(String? string) =>
-      Style.isLowerCaseForNull(string);
-
-  /// Returns true if [string] contains only upper case letters
+  /// If [string] is null then return true;
   ///
   /// Example:
   ///     print(isUpperCase("CamelCase"));
@@ -83,46 +71,15 @@ class Strings {
   ///
   ///     print(isUpperCase(""));
   ///     => false
-  static bool isUpperCase(String string) => Style.isUpperCase(string);
-
-  /// Returns true if [string] does not contain lower case letters.
   ///
-  /// If [string] is null then return true;
-  ///
-  /// Example:
-  ///     print(isUpperCaseForNull("CamelCase"));
-  ///     => false
-  ///
-  ///     print(isUpperCaseForNull("DART"));
+  ///     print(isUpperCase(null));
   ///     => true
-  ///
-  ///     print(isUpperCaseForNull(""));
-  ///     => false
-  ///
-  ///     print(isUpperCaseForNull(null));
-  ///     => true
-  static bool isUpperCaseForNull(String? string) =>
-      Style.isUpperCaseForNull(string);
-
-  /// Returns true if [character] is a printable ascii
-  /// character
-  static bool isPrintable(int character) => Style.isPrintable(character);
+  static bool isUpperCase(String? string) => Style.isUpperCase(string);
 
   /// Returns true if [character] is a printable ascii
   /// character.
   /// If [character] is null  then we return false.
-  static bool isPrintableForNull(int? character) =>
-      Style.isPrintableForNull(character);
-
-  /// Converts [string] to snake_case by
-  /// inserting an underscore before each
-  /// sequence of upper case letters and
-  /// changing all upper case letters to lowercase.
-  ///
-  /// Example:
-  ///     print(underscore("DartVM DartCore"));
-  ///     => dart_vm dart_core
-  static String toSnakeCase(String string) => Style.toSnakeCase(string);
+  static bool isPrintable(int? character) => Style.isPrintable(character);
 
   /// Converts [string] to snake_case by
   /// inserting an underscore before each
@@ -134,12 +91,11 @@ class Strings {
   /// Example:
   ///     print(underscore("DartVM DartCore"));
   ///     => dart_vm dart_core
-  static String toSnakeCaseForNull(String? string) =>
-      Style.toSnakeCaseForNull(string);
+  static String toSnakeCase(String? string) => Style.toSnakeCase(string);
 
   /// Returns true if [string] starts with the lower case character.
   ///
-  /// Returns false if [string] is empty.
+  /// Returns false if [string] is empty or null
   ///
   /// Example:
   ///     print(startsWithLowerCase("camelCase"));
@@ -147,23 +103,10 @@ class Strings {
   ///
   ///     print(startsWithLowerCase(""));
   ///     => false
-  static bool startsWithLowerCase(String string) =>
+  ///     print(startsWithLowerCase(null));
+  ///     => false
+  static bool startsWithLowerCase(String? string) =>
       Style.startsWithLowerCase(string);
-
-  /// Returns true if [string] starts with the lower case character.
-  ///
-  /// Returns false if [string] is empty or null
-  ///
-  /// Example:
-  ///     print(startsWithLowerCaseForNull("camelCase"));
-  ///     => true
-  ///
-  ///     print(startsWithLowerCaseForNull(""));
-  ///     => false
-  ///     print(startsWithLowerCaseForNull(null));
-  ///     => false
-  static bool startsWithLowerCaseForNull(String? string) =>
-      Style.startsWithLowerCaseForNull(string);
 
   /// Returns true if the string starts with the upper case character.
   ///
@@ -175,30 +118,17 @@ class Strings {
   ///
   ///     print(startsWithUpperCase(""));
   ///     => false
-  static bool startsWithUpperCase(String string) =>
+  ///
+  ///     print(startsWithUpperCase(null));
+  ///     => false
+  static bool startsWithUpperCase(String? string) =>
       Style.startsWithUpperCase(string);
-
-  /// Returns true if the string starts with the upper case character.
-  ///
-  /// Returns false if [string] is empty.
-  ///
-  /// Example:
-  ///     print(startsWithUpperCaseForNull("Dart"));
-  ///     => true
-  ///
-  ///     print(startsWithUpperCaseForNull(""));
-  ///     => false
-  ///
-  ///     print(startsWithUpperCaseForNull(null));
-  ///     => false
-  static bool startsWithUpperCaseForNull(String? string) =>
-      Style.startsWithLowerCaseForNull(string);
 
   //
   // Methods that transform a String
   //
 
-  /// If [string] is null we return an zero length string otherwise we
+  /// If [string] is null we return a zero length string otherwise we
   /// return [string].
   /// Rather than using this method you could call:
   /// string ?? '';
@@ -225,39 +155,21 @@ class Strings {
 
   /// Methods that deal with parts of a string.
 
-  /// Returns all characters from string starting at [fromRight] inclusive.
-  /// If [fromRight] is outside the bounds of [string] then an
-  /// [RangeError] is thrown.
-  static String right(String string, int fromRight) =>
-      Part.right(string, fromRight);
+  /// Returns the right 'n' characters from  [string].
+  /// If [length] is greater than the length of [string] then padding
+  /// is applied according to [pad].
+  /// if [string] is null it is treated as an empty String and the
+  /// above rules are applied.
+  static String right(String? string, int length, {Pad pad = Pad.none}) =>
+      Part.right(string, length, pad: pad);
 
-  /// Returns all characters from string starting at [fromRight] inclusive.
-  /// If [fromRight] is null then an empty string is returned.
-  /// If [fromRight] is outside the bounds of [string] then an
-  /// [RangeError] is thrown.
-  static String rightForNull(String? string, int fromRight) =>
-      Part.rightForNull(string, fromRight);
-
-  /// Returns the first [fromLeft] characters from [string]
-  /// If [fromLeft] is longer than [string] then an
-  /// [RangeError] is thrown.
-  static String left(String string, int fromLeft) =>
-      Part.left(string, fromLeft);
-
-  /// Returns the first [fromLeft] characters from [string]
-  /// If [fromLeft] is longer than [string] then an
-  /// [RangeError] is thrown.
-  static String leftForNull(String? string, int fromLeft) =>
-      Part.leftForNull(string, fromLeft);
-
-  /// Abbreviate a string to [maxWidth] by truncating the
-  /// string and adding '...' to then truncated string.
-  /// ```
-  /// Strings.abbreviate('Hello World', 6) == 'Hel...'
-  /// ```
-  /// The minimum string for [maxWidth] is 4
-  static String abbreviate(String str, int maxWidth, {int offset = 0}) =>
-      Part.abbreviate(str, maxWidth, offset: offset);
+  /// Returns the first [length] characters from [string]
+  /// If [length] is longer than [string] then the result is padded
+  /// according to [pad]
+  /// if [string] is null it is treated as an empty String and the
+  /// above rules are applied.
+  static String left(String? string, int length, {Pad pad = Pad.none}) =>
+      Part.left(string, length, pad: pad);
 
   /// Abbreviate a string to [maxWidth] by truncating the
   /// string and adding '...' to then truncated string.
@@ -266,23 +178,8 @@ class Strings {
   /// Strings.abbreviate('Hello World', 6) == 'Hel...'
   /// ```
   /// The minimum string for [maxWidth] is 4
-  static String abbreviateForNull(String? string, int maxWidth,
-          {int offset = 0}) =>
-      Part.abbreviateForNull(string ?? '', maxWidth);
-
-  /// Returns the joined elements of the [list].
-  /// If the [list] is null then an empty String is returned.
-  ///
-  /// Example:
-  ///     print(join(null));
-  ///     => ''
-  ///
-  ///     print(join([1, 2]));
-  ///     => 12
-  ///     print(join([1, 2], separator: ','));
-  ///     => 1,2
-  static String join(List<Object>? list, [String separator = '']) =>
-      Part.join(list, separator: separator);
+  static String abbreviate(String? string, int maxWidth, {int offset = 0}) =>
+      Part.abbreviate(string, maxWidth);
 
   /// Returns the joined elements of the [list].
   /// If the [list] is null then an empty String is returned.
@@ -297,15 +194,8 @@ class Strings {
   ///     => 12
   ///     print(join([1, 2], separator: ','));
   ///     => 1,2
-  static String joinForNull(List<Object?>? list, {String separator = ''}) =>
-      Part.joinForNull(list, separator: separator);
-
-  /// Returns a string with reversed order of characters.
-  ///
-  /// Example:
-  ///     print(reverse("hello"));
-  ///     => olleh
-  static String reverse(String string) => Transform.reverse(string);
+  static String join(List<Object?>? list, {String separator = ''}) =>
+      Part.join(list, separator: separator);
 
   /// Returns a string with reversed order of characters.
   /// If [string] is null then returns an empty string.
@@ -313,8 +203,7 @@ class Strings {
   /// Example:
   ///     print(reverse("hello"));
   ///     => olleh
-  static String reverseForNull(String? string) =>
-      Transform.reverseForNull(string);
+  static String reverse(String? string) => Transform.reverse(string);
 
 //
 // Methods that apply a style to  a String
@@ -323,23 +212,8 @@ class Strings {
   /// Converts [sentence] to proper case by capitalising
   /// the first letter of each word and forcing all other characters
   /// to lower case.
-  static String toProperCase(String sentence) => Style.toProperCase(sentence);
-
-  /// Converts [sentence] to proper case by capitalising
-  /// the first letter of each word and forcing all other characters
-  /// to lower case.
   /// If [sentence] is null then an empty String is returned.
-  static String toProperCaseForNull(String sentence) =>
-      Style.toProperCaseForNull(sentence);
-
-  /// Returns a string in the form "UpperCamelCase" or "lowerCamelCase".
-  /// If [lower] is true, then the first character will be lower case.
-  ///
-  /// Example:
-  ///      print(camelize("dart_vm"));
-  ///      => DartVm
-  static String toCamelCase(String string, {bool lower = false}) =>
-      Style.toCamelCase(string, lower: lower);
+  static String toProperCase(String? sentence) => Style.toProperCase(sentence);
 
   /// Returns [string] in the form "UpperCamelCase" or "lowerCamelCase".
   /// If [string] is null then returns an empty String.
@@ -349,15 +223,8 @@ class Strings {
   /// Example:
   ///      print(camelize("dart_vm"));
   ///      => DartVm
-  static String toCamelCaseForNull(String? string, {bool lower = false}) =>
-      Style.toCamelCaseForNull(string, lower: lower);
-
-  /// Returns [string] with the first character capitalized.
-  ///
-  /// Example:
-  ///     print(capitalize("dart"));
-  ///     => Dart
-  static String toCapitalised(String string) => Case.toCapitalised(string);
+  static String toCamelCase(String? string, {bool lower = false}) =>
+      Style.toCamelCase(string, lower: lower);
 
   /// Returns [string] with the first character capitalized.
   /// If [string] is null then an empty String is returned;
@@ -365,10 +232,10 @@ class Strings {
   /// Example:
   ///     print(capitalize("dart"));
   ///     => Dart
-  static String toCapitalisedForNull(String? string) =>
-      Case.toCapitalisedForNull(string);
+  static String toCapitalised(String? string) => Style.toCapitalised(string);
 
   /// Returns an escaped string.
+  /// If [string] is null then an empty string is returned.
   /// The following characters are escaped
   ///
   /// tab
@@ -381,34 +248,9 @@ class Strings {
   /// Example:
   ///     print(toEscaped("Hello 'world' \n"));
   ///     => Hello \'world\' \n
-  static String toEscaped(String string,
-          [String Function(int charCode)? encode]) =>
-      Transform.toEscape(string, encode);
-
-  /// Returns an escaped string.
-  /// If [string] is null then an empty string is returned.
-  /// The following characters are escaped
-  ///
-  /// tab
-  /// newline
-  /// carriage return
-  /// "
-  /// '
-  /// $
-  ///
-  /// Example:
-  ///     print(toEscapedForNull("Hello 'world' \n"));
-  ///     => Hello \'world\' \n
-  static String toEscapedForNull(String? string,
-          [String Function(int charCode)? encode]) =>
-      Transform.toEscapeForNull(string, encode);
-
-  /// Returns an Unicode representation of the character code.
-  ///
-  /// Example:
-  ///     print(toUnicode(48));
-  ///     => \u0030
-  static String toUnicode(int charCode) => Transform.toUnicode(charCode);
+  static String toEscaped(String? string,
+          {String Function(int charCode)? encode}) =>
+      Transform.toEscape(string, encode: encode);
 
   /// Returns an Unicode representation of the character code.
   /// If [charCode] is null then an empty String is returned.
@@ -416,20 +258,7 @@ class Strings {
   /// Example:
   ///     print(toUnicode(48));
   ///     => \u0030
-  static String toUnicodeForNull(int? charCode) =>
-      Transform.toUnicodeForNull(charCode);
-
-  /// Returns an escaped string.
-  /// The following characters are escaped
-  ///
-  /// tab
-  /// newline
-  /// carriage return
-  ///
-  /// Example:
-  ///     print(toPrintable("Hello 'world' \n"));
-  ///     => Hello \'world\' \n
-  static String toPrintable(String string) => Transform.toPrintable(string);
+  static String toUnicode(int? charCode) => Transform.toUnicode(charCode);
 
   /// Returns an escaped string.
   /// If [string] is null then an empty string is returned.
@@ -442,8 +271,7 @@ class Strings {
   /// Example:
   ///     print(toPrintable("Hello 'world' \n"));
   ///     => Hello \'world\' \n
-  static String toPrintableForNull(String? string) =>
-      Transform.toPrintableForNull(string);
+  static String toPrintable(String? string) => Transform.toPrintable(string);
 
   //
   // Equality checks
@@ -463,4 +291,125 @@ class Strings {
 
     return true;
   }
+
+  //
+  // Safe wrapper methods for String methods
+  //
+
+  /// Refer to [String.length]
+  static int length(String? string) => Safe.length(string);
+
+  /// Refer to [String.codeUnits]
+  static List<int> codeUnits(String? string) => Safe.codeUnits(string);
+
+  /// Refer to [String.runes]
+  static Runes runes(String? string) => Safe.runes(string);
+
+  /// Refer to [String.allMatches]
+  static Iterable<Match> allMatches(String? pattern, String string,
+          [int start = 0]) =>
+      Safe.allMatches(pattern, string, start);
+
+  /// Refer to [String.codeUnitAt]
+  /// If [string] is null it is treated as an empty string which will result
+  /// in an IndexOutOfBoundsException
+  static int codeUnitAt(String? string, int index) =>
+      Safe.codeUnitAt(string, index);
+
+  /// Refer to [String.compareTo]
+  /// This method has special handling for a null [string] or [other].
+  /// If both are null then we return -1
+  /// If one of them is null then we use [nullIsLessThan] to determine if
+  /// we return -1  or 1.
+  static int compareTo(String? string, String? other,
+          {bool nullIsLessThan = true}) =>
+      Safe.compareTo(string, other, nullIsLessThan: nullIsLessThan);
+
+  /// Refer to [String.contains]
+  static bool contains(String? string, Pattern other, [int startIndex = 0]) =>
+      Safe.contains(string, other, startIndex);
+
+  /// Refer to [String.endsWith]
+  static bool endsWith(String? string, String? other) =>
+      Safe.endsWith(string, other);
+
+  /// Refer to [String.indexOf]
+  static int indexOf(String? string, Pattern pattern, [int start = 0]) =>
+      Safe.indexOf(string, pattern, start);
+
+  /// Refer to [String.lastIndexOf]
+  static int lastIndexOf(String? string, Pattern pattern, [int? start]) =>
+      Safe.lastIndexOf(string, pattern, start);
+
+  /// Refer to [String.matchAsPrefix]
+  static Match? matchAsPrefix(String? pattern, String string,
+          [int start = 0]) =>
+      Safe.matchAsPrefix(pattern, string, start);
+
+  /// Refer to [String.padLeft]
+  static String padLeft(String? string, int width, [String padding = ' ']) =>
+      Safe.padLeft(string, width, padding);
+
+  /// Refer to [String.padRight]
+  static String padRight(String? string, int width, [String padding = ' ']) =>
+      Safe.padRight(string, width, padding);
+
+  /// Refer to [String.replaceAll]
+  static String replaceAll(String? string, Pattern from, String replace) =>
+      Safe.replaceAll(string, from, replace);
+
+  /// Refer to [String.replaceAllMapped]
+  static String replaceAllMapped(
+          String? string, Pattern from, String Function(Match match) replace) =>
+      Safe.replaceAllMapped(string, from, replace);
+
+  /// Refer to [String.replaceFirst]
+  static String replaceFirst(String? string, Pattern from, String to,
+          [int startIndex = 0]) =>
+      Safe.replaceFirst(string, from, to, startIndex);
+
+  /// Refer to [String.replaceFirstMapped]
+  static String replaceFirstMapped(
+          String? string, Pattern from, String Function(Match match) replace,
+          [int startIndex = 0]) =>
+      Safe.replaceFirstMapped(string, from, replace, startIndex);
+
+  /// Refer to [String.replaceRange]
+  static String replaceRange(
+          String? string, int start, int? end, String replacement) =>
+      Safe.replaceRange(string, start, end, replacement);
+
+  /// Refer to [String.split]
+  static List<String> split(String? string, Pattern pattern) =>
+      Safe.split(string, pattern);
+
+  /// Refer to [String.splitMapJoin]
+  static String splitMapJoin(String? string, Pattern pattern,
+          {String Function(Match)? onMatch,
+          String Function(String)? onNonMatch}) =>
+      Safe.splitMapJoin(string, pattern,
+          onMatch: onMatch, onNonMatch: onNonMatch);
+
+  /// Refer to [String.startsWith]
+  static bool startsWith(String? string, Pattern pattern, [int index = 0]) =>
+      Safe.startsWith(string, pattern, index);
+
+  /// Refer to [String.substring]
+  static String substring(String? string, int start, [int? end]) =>
+      Safe.substring(string, start, end);
+
+  /// Refer to [String.toLowerCase]
+  static String toLowerCase(String? string) => Safe.toLowerCase(string);
+
+  /// Refer to [String.toUpperCase]
+  static String toUpperCase(String? string) => Safe.toUpperCase(string);
+
+  /// Refer to [String.trim]
+  static String trim(String? string) => Safe.trim(string);
+
+  /// Refer to [String.trimLeft]
+  static String trimLeft(String? string) => Safe.trimLeft(string);
+
+  /// Refer to [String.trimRight]
+  static String trimRight(String? string) => Safe.trimRight(string);
 }

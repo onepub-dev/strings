@@ -7,37 +7,42 @@ final List<List<String>> _underscoreCamelCaseLower = <List<String>>[];
 void main() {
   setUpAll(_prepare);
 
-  test('properCase ...', () async {
+  test('toProperCase ...', () async {
+    expect(Strings.toProperCase(null), equals(''));
     expect(Strings.toProperCase(''), equals(''));
     expect(Strings.toProperCase('one'), equals('One'));
     expect(Strings.toProperCase('one two three'), equals('One Two Three'));
     expect(Strings.toProperCase('ONE'), equals('One'));
     expect(Strings.toProperCase('ONE TWO THREE'), equals('One Two Three'));
-    // expect(() => Strings.right('one', 3),
-    //     throwsA(isA<IndexOutofBoundsException>()));
   });
 
   test('toCamelCase', () {
-    const subject = 'camelize';
+    const subject = 'toCamelCase';
+    expect(Strings.toCamelCase(null), '');
     //
     for (var i = 0; i < _underscoreCamelCase.length; i += 2) {
       final source = _underscoreCamelCase[i + 0][1];
       final expected = _underscoreCamelCase[i + 0][0];
       final actual = Strings.toCamelCase(source);
       expect(actual, expected, reason: subject);
+      expect(actual, expected, reason: subject);
     }
+
     //
+    expect(Strings.toCamelCase(null, lower: true), '');
     for (var i = 0; i < _underscoreCamelCaseLower.length; i += 2) {
       final source = _underscoreCamelCaseLower[i + 0][1];
       final expected = _underscoreCamelCaseLower[i + 0][0];
       final actual = Strings.toCamelCase(source, lower: true);
       expect(actual, expected, reason: subject);
+      expect(actual, expected, reason: subject);
     }
   });
 
-  test('Capitalize', () {
-    const subject = 'capitalize';
+  test('toCapitalised', () {
+    const subject = 'toCapitalised';
     //
+    expect(Strings.toCapitalised(null), '');
     var actual = Strings.toCapitalised('dart core');
     expect(actual, 'Dart core', reason: subject);
     //
@@ -51,7 +56,10 @@ void main() {
   test('IsLowerCase', () {
     const subject = 'isLowerCase';
     //
-    var actual = Strings.isLowerCase('');
+    var actual = Strings.isLowerCase(null);
+    expect(actual, true);
+
+    actual = Strings.isLowerCase('');
     expect(actual, true, reason: subject);
     //
     actual = Strings.isLowerCase('lower_case1');
@@ -73,7 +81,10 @@ void main() {
   test('IsUpperCase', () {
     const subject = 'isUpperCase';
     //
-    var actual = Strings.isUpperCase('');
+    var actual = Strings.isUpperCase(null);
+    expect(actual, true);
+
+    actual = Strings.isUpperCase('');
     expect(actual, true, reason: subject);
     //
     actual = Strings.isUpperCase('lower_case1');
@@ -95,7 +106,10 @@ void main() {
   test('StartsWithLowerCase', () {
     const subject = 'startsWithLowerCase';
     //
-    var actual = Strings.startsWithLowerCase('');
+    var actual = Strings.startsWithLowerCase(null);
+    expect(actual, false, reason: subject);
+
+    actual = Strings.startsWithLowerCase('');
     expect(actual, false, reason: subject);
     //
     actual = Strings.startsWithLowerCase('a');
@@ -120,7 +134,10 @@ void main() {
   test('StartsWithUpperCase', () {
     const subject = 'startsWithUpperCase';
     //
-    var actual = Strings.startsWithUpperCase('');
+    var actual = Strings.startsWithUpperCase(null);
+    expect(actual, false, reason: subject);
+
+    actual = Strings.startsWithUpperCase('');
     expect(actual, false, reason: subject);
     //
     actual = Strings.startsWithUpperCase('a');
@@ -142,9 +159,10 @@ void main() {
     expect(actual, false, reason: subject);
   });
 
-  test('Underscore', () {
-    const subject = 'underscore';
+  test('toSnakeCase', () {
+    const subject = 'toSnakeCase';
     //
+    expect(Strings.toSnakeCase(null), '');
     for (var i = 0; i < _underscoreCamelCase.length; i += 2) {
       final source = _underscoreCamelCase[i + 0][0];
       final expected = _underscoreCamelCase[i + 0][1];
