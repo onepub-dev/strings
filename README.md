@@ -28,18 +28,18 @@ core Dart String class:
 
 Full documentation including examples is available at:
 
-https://strings.onepub.dev
+[https://strings.onepub.dev](https://strings.onepub.dev)
 
 # Contributing:
 The strings package is hosted on github at:
-https://github.com/onepub-dev/strings
+[https://github.com/onepub-dev/strings](https://github.com/onepub-dev/strings)
 
 Contributions are welcomed.
 
 # Sponser
 The strings package is sponsored by OnePub - the private Dart repository SaaS.
 
-https://onepub.dev
+[https://onepub.dev](https://onepub.dev)
 
 
 

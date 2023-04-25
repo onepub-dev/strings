@@ -1,3 +1,6 @@
+# 2.0.0-beta.2
+- Fixed broken links on the readme apge.
+
 # 2.0.0-beta.1
 
 ## BREAKING
