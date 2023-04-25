@@ -23,6 +23,10 @@ class Strings {
   /// INFINITY and NaN are not treated as numbers.
   static bool isNumeric(String? string) => Type.isNumeric(string);
 
+  /// returns true if [string] only contains
+  /// ascii characters. (0 - 128)
+  static bool isAscii(String? string) => Type.isAscii(string);
+
   /// true if the [string] is null, or is a zero length String
   static bool isEmpty(String? string) => Empty.isEmpty(string);
 
@@ -155,22 +159,6 @@ class Strings {
 
   /// Methods that deal with parts of a string.
 
-  /// Returns the right 'n' characters from  [string].
-  /// If [length] is greater than the length of [string] then padding
-  /// is applied according to [pad].
-  /// if [string] is null it is treated as an empty String and the
-  /// above rules are applied.
-  static String right(String? string, int length, {Pad pad = Pad.none}) =>
-      Part.right(string, length, pad: pad);
-
-  /// Returns the first [length] characters from [string]
-  /// If [length] is longer than [string] then the result is padded
-  /// according to [pad]
-  /// if [string] is null it is treated as an empty String and the
-  /// above rules are applied.
-  static String left(String? string, int length, {Pad pad = Pad.none}) =>
-      Part.left(string, length, pad: pad);
-
   /// Abbreviate a string to [maxWidth] by truncating the
   /// string and adding '...' to then truncated string.
   /// If [string] is null an empty string is returned.
@@ -197,6 +185,22 @@ class Strings {
   static String join(List<Object?>? list, {String separator = ''}) =>
       Part.join(list, separator: separator);
 
+  /// Hides part of a string by replace the characters between
+  /// [start] (inclusive)  and [end] exclusive.
+  /// If start is not passed then it is defaults to 0.
+  /// If end is it defaults to the end of the string.
+  static String hidePart(String? string,
+          {int start = 0, int? end, String replaceWith = '*'}) =>
+      Part.hidePart(string, start: start, end: end, replaceWith: replaceWith);
+
+  /// Returns the first [take] characters from [string]
+  /// If [take] is longer than [string] then the result is padded
+  /// according to [pad]
+  /// if [string] is null it is treated as an empty String and the
+  /// above rules are applied.
+  static String left(String? string, int take, {Pad pad = Pad.none}) =>
+      Part.left(string, take, pad: pad);
+
   /// Returns a string with reversed order of characters.
   /// If [string] is null then returns an empty string.
   ///
@@ -204,6 +208,14 @@ class Strings {
   ///     print(reverse("hello"));
   ///     => olleh
   static String reverse(String? string) => Transform.reverse(string);
+
+  /// Returns the right 'n' characters from  [string].
+  /// If [take] is greater than the length of [string] then padding
+  /// is applied according to [pad].
+  /// if [string] is null it is treated as an empty String and the
+  /// above rules are applied.
+  static String right(String? string, int take, {Pad pad = Pad.none}) =>
+      Part.right(string, take, pad: pad);
 
 //
 // Methods that apply a style to  a String
@@ -278,7 +290,7 @@ class Strings {
   //
 
   /// Safely compares two strings.
-  /// If both are null returns true
+  /// If both are null returns false
   /// If one of them is null returns false
   /// if both are the same returns true.
   ///
@@ -290,6 +302,18 @@ class Strings {
     if (!(lhs == rhs)) return false;
 
     return true;
+  }
+
+  /// Compare two strings ignoring case.
+  /// If both are null returns false
+  /// If one of them is null returns false
+  /// if both are the same, ignoring case, returns true.
+  static bool equalsIgnoreCase(String? lhs, String? rhs) {
+    if (lhs == null && rhs == null) return true;
+    if (lhs == null) return false;
+    if (rhs == null) return false;
+
+    return lhs.toLowerCase() == rhs.toLowerCase();
   }
 
   //

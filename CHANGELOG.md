@@ -6,6 +6,7 @@
 - All methods are now exposed as static methods of the 'Strings' class.
 
 
+
 # 1.0.0
 
 - Initial version, created by Stagehand

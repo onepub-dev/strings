@@ -17,4 +17,10 @@ void main() {
     expect(Strings.isNumeric(double.nan.toString()), isFalse);
     expect(Strings.isNumeric('0x123'), isFalse);
   });
+
+  test('isAscii', () {
+    expect(Strings.isAscii('a'), true);
+    expect(
+        Strings.isAscii('the quick brown fox jumped over the lazy dog'), true);
+  });
 }

@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
+import 'package:characters/characters.dart';
+
 enum Pad { left, right, none }
 
 class Part {
@@ -40,6 +42,36 @@ class Part {
     return abrevMarker + string.substring(length - (maxWidth - 3));
   }
 
+  /// Hides part of a string by replace the characters between
+  /// [start] (inclusive) and [end] exclusive.
+  /// If start is not passed then it is defaults to 0.
+  /// If end is it defaults to the end of the string.
+  ///
+  /// By default characters are replaced with '*' however you can
+  /// choose an alternate character(s) by passing [replaceWith].
+  static String hidePart(String? string,
+      {int start = 0, int? end, String replaceWith = '*'}) {
+    if (string == null) {
+      return '';
+    }
+    end ??= string.length;
+
+    final characters = Characters(string);
+    final sb = StringBuffer();
+    var pos = 0;
+
+    for (final ch in characters) {
+      if (pos >= start && pos < end) {
+        sb.write(replaceWith);
+      } else {
+        sb.write(ch);
+      }
+
+      pos++;
+    }
+    return sb.toString();
+  }
+
   /// Returns the joined elements of the [list].
   /// If the [list] is null then an empty String is returned.
   /// If any element in [list] is null it is treated as an empty string
@@ -56,18 +88,18 @@ class Part {
   static String join(List<Object?>? list, {String separator = ''}) =>
       list == null ? '' : list.map((element) => element ?? '').join(separator);
 
-  /// Returns the first [len] characters from [string]
-  /// If [len] is longer than [string] then the result is padded
+  /// Returns the first [take] characters from [string]
+  /// If [take] is longer than [string] then the result is padded
   /// according to [pad]
-  static String left(String? string, int len, {Pad pad = Pad.none}) {
+  static String left(String? string, int take, {Pad pad = Pad.none}) {
     string ??= '';
 
     final length = string.length;
-    if (length >= len) {
-      return string.substring(0, len);
+    if (length >= take) {
+      return string.substring(0, take);
     }
 
-    final padLength = len - length;
+    final padLength = take - length;
 
     switch (pad) {
       case Pad.left:

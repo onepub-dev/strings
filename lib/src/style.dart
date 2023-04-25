@@ -70,15 +70,15 @@ class Style {
   ///
   ///     print(isUpperCase(""));
   ///     => false
-  static bool isUpperCase(String? value) {
-    if (value == null) {
+  static bool isUpperCase(String? string) {
+    if (string == null) {
       return true;
     }
-    if (value.isEmpty) {
+    if (string.isEmpty) {
       return true;
     }
 
-    final characters = Characters(value);
+    final characters = Characters(string);
     for (final s in characters) {
       final runes = s.runes;
       if (runes.length == 1) {
@@ -144,7 +144,7 @@ class Style {
     return false;
   }
 
-  /// Returns true if [value]] starts with the upper case character; otherwise
+  /// Returns true if [string]] starts with the upper case character; otherwise
   /// false;
   ///
   /// Example:
@@ -153,15 +153,15 @@ class Style {
   ///
   ///     print(startsWithUpperCase(""));
   ///     => false
-  static bool startsWithUpperCase(String? value) {
-    if (value == null) {
+  static bool startsWithUpperCase(String? string) {
+    if (string == null) {
       return false;
     }
-    if (value.isEmpty) {
+    if (string.isEmpty) {
       return false;
     }
 
-    final characters = Characters(value);
+    final characters = Characters(string);
     final s = characters.first;
     final runes = s.runes;
     if (runes.length == 1) {
@@ -190,20 +190,20 @@ class Style {
   /// Example:
   ///      print(camelize("dart_vm"));
   ///      => DartVm
-  static String toCamelCase(String? value, {bool lower = false}) {
-    if (value == null) {
+  static String toCamelCase(String? string, {bool lower = false}) {
+    if (string == null) {
       return '';
     }
-    if (value.isEmpty) {
-      return value;
+    if (string.isEmpty) {
+      return string;
     }
 
-    value = value.toLowerCase();
+    string = string.toLowerCase();
     var capitlize = true;
     var position = 0;
     var remove = false;
     final sb = StringBuffer();
-    final characters = Characters(value);
+    final characters = Characters(string);
     for (final s in characters) {
       final runes = s.runes;
       var flag = 0;
@@ -249,6 +249,7 @@ class Style {
 
     return sb.toString();
   }
+
   // toCapitalised
   static String toCapitalised(String? string) {
     if (string == null || string.isEmpty) {

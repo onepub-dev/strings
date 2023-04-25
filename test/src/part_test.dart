@@ -51,4 +51,13 @@ void main() {
     expect(Strings.right('one', 4, pad: Pad.left), ' one');
     expect(Strings.right('one', 4, pad: Pad.right), 'one ');
   });
+
+  test('hidePart', () {
+    expect(Strings.hidePart('password'), '********');
+    expect(Strings.hidePart('password', start: 1), 'p*******');
+    expect(Strings.hidePart('password', start: 1, replaceWith: '##'),
+        'p##############');
+    expect(Strings.hidePart('password', start: 1, end: 2), 'p*ssword');
+    expect(Strings.hidePart('password', start: 1, end: 20), 'p*******');
+  });
 }

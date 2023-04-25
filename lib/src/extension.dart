@@ -1,3 +1,5 @@
+import '../strings.dart';
+import 'blank.dart';
 import 'part.dart';
 import 'style.dart';
 import 'transform.dart';
@@ -13,6 +15,14 @@ extension StringEx on String {
   /// The minimum string for [maxWidth] is 4
   String abbreviate(int maxWidth, {int offset = 0}) =>
       Part.abbreviate(this, maxWidth);
+
+  /// true if the this is Blank.
+  /// A string that only contains whitespace is considered blank.
+  bool isBlank() => Blank.isBlank(this);
+
+  /// true if the this is not Blank.
+  /// A string that only contains whitespace is considered blank.
+  bool isNotBlank() => Blank.isNotBlank(this);
 
   /// Returns true if this does not contain upper case letters
   ///
@@ -37,6 +47,10 @@ extension StringEx on String {
   /// as a double.
   /// INFINITY and NaN are not treated as numbers.
   bool isNumeric() => Type.isNumeric(this);
+
+  /// returns true if this only contains
+  /// ascii characters. (0 - 128)
+  bool isAscii() => Type.isAscii(this);
 
   /// Returns true if this does not contain any lower case letters.
   ///
@@ -175,4 +189,10 @@ extension StringEx on String {
   ///     print(underscore("DartVM DartCore"));
   ///     => dart_vm dart_core
   String toSnakeCase() => Style.toSnakeCase(this);
+
+  /// Compare two strings ignoring case.
+  /// If both are null returns false
+  /// If one of them is null returns false
+  /// if both are the same, ignoring case, returns true.
+  bool equalsIgnoreCase(String? rhs) => Strings.equalsIgnoreCase(this, rhs);
 }
