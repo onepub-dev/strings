@@ -44,7 +44,7 @@ The strings package is sponsored by OnePub - the private Dart repository SaaS.
 
 [https://onepub.dev](https://onepub.dev)
 
-![OnePub Logo](https://github.com/onepub-dev/strings/blob/master/images/onepub-logo.svg?raw=true)
+<img alt="OnePub Logo" src="https://raw.githubusercontent.com/onepub-dev/strings/main/images/onepub-logo.svg" style="width:200px"></img>
 
 
 
