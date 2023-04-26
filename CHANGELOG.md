@@ -1,5 +1,9 @@
+# 2.0.0-beta.3
+- added documentation link to pubspec
+- added onepub logo
+
 # 2.0.0-beta.2
-- Fixed broken links on the readme apge.
+- Fixed broken links on the readme page.
 
 # 2.0.0-beta.1
 
@@ -12,4 +16,4 @@
 
 # 1.0.0
 
-- Initial version, created by Stagehand
+- Initial release
