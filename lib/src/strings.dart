@@ -93,7 +93,7 @@ class Strings {
   /// Returns an empty String if [string] is null.
   ///
   /// Example:
-  ///     print(underscore("DartVM DartCore"));
+  ///     print(toSnakeCase("DartVM DartCore"));
   ///     => dart_vm dart_core
   static String toSnakeCase(String? string) => Style.toSnakeCase(string);
 

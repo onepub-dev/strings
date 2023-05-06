@@ -5,7 +5,8 @@ import 'style.dart';
 import 'transform.dart';
 import 'type.dart';
 
-/// Provides safe methods for a number of
+/// Provides a set of extensions for the core String class.
+/// 
 extension StringEx on String {
   /// Abbreviate a string to [maxWidth] by truncating the
   /// string and adding '...' to then truncated string.
@@ -206,7 +207,7 @@ extension StringEx on String {
   ///
   /// Example:
   /// ```dart
-  ///     print("DartVM DartCore".underscore());
+  ///     print("DartVM DartCore".toSnakeCase());
   ///     => dart_vm dart_core
   /// ```
   String toSnakeCase() => Style.toSnakeCase(this);
