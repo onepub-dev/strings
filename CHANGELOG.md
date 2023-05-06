@@ -1,3 +1,6 @@
+# 2.0.1
+- Documenation fixes.
+
 # 2.0.0-beta.3
 - added documentation link to pubspec
 - added onepub logo
