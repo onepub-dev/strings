@@ -1,7 +1,7 @@
 name: strings
-version: 2.0.0-beta.3
+version: 2.0.0
 documentation: https://strings.onepub.dev
-description: Provides a set of String related functions
+description: Provides a set of String related aimed at extending the core String class and provide safer methods for working with nullable strings and strings in general.
 repository: https://github.com/onepub-dev/strings
 environment: 
   sdk: '>=2.12.0 <3.0.0'

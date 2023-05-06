@@ -31,18 +31,18 @@ The Strings package incudes over 50 functions.
 
 You can see the full list including examples at:
 
-[https://strings.onepub.dev](https://strings.onepub.dev)
+[strings.onepub.dev](https://strings.onepub.dev)
 
 # Contributing:
 The strings package is hosted on github at:
-[https://github.com/onepub-dev/strings](https://github.com/onepub-dev/strings)
+[github.com/onepub-dev/strings](https://github.com/onepub-dev/strings)
 
 Contributions are welcomed.
 
 # Sponser
 The strings package is sponsored by OnePub - the private Dart repository SaaS.
 
-[https://onepub.dev](https://onepub.dev)
+[onepub.dev](https://onepub.dev)
 
 <img alt="OnePub Logo" src="https://raw.githubusercontent.com/onepub-dev/strings/main/images/onepub-logo.svg" style="width:200px"></img>
 
