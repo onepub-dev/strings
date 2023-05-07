@@ -1,3 +1,7 @@
+# 2.0.2
+- Improvements to the API documentation.
+- Updated references to underscore to its new name toSnakeCase Fixed the StringEx class description.
+
 # 2.0.1
 - Documenation fixes.
 

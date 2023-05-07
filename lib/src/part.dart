@@ -2,7 +2,18 @@
 
 import 'package:characters/characters.dart';
 
-enum Pad { left, right, none }
+/// Control the padding on functions that allow the result
+/// to be padded.
+enum Pad {
+  /// Add the padding to the left of the String
+  left,
+
+  /// Add the padding to the right of the String
+  right,
+
+  /// Do not pad the String.
+  none
+}
 
 class Part {
   /// Abbreviate a string to [maxWidth] by truncating the

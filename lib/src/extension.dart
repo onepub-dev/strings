@@ -6,10 +6,12 @@ import 'transform.dart';
 import 'type.dart';
 
 /// Provides a set of extensions for the core String class.
-/// 
+///
 extension StringEx on String {
   /// Abbreviate a string to [maxWidth] by truncating the
   /// string and adding '...' to then truncated string.
+  /// If [offset] is passed then the we begin abbreviating
+  /// from that index into the string.
   /// ```dart
   /// 'Hello World'.abbreviate(6) == 'Hel...'
   /// ```
@@ -17,17 +19,19 @@ extension StringEx on String {
   String abbreviate(int maxWidth, {int offset = 0}) =>
       Part.abbreviate(this, maxWidth);
 
-  /// true if the this is Blank.
-  /// A string that only contains whitespace is considered blank.
+  /// true if the the String is Blank.
+  /// A string that is zero length or only contains whitespace is
+  /// considered blank.
   bool isBlank() => Blank.isBlank(this);
 
-  /// true if the this is not Blank.
-  /// A string that only contains whitespace is considered blank.
+  /// true if the String is not Blank.
+  /// A string that is zero length or only contains whitespace is
+  /// considered blank.
   bool isNotBlank() => Blank.isNotBlank(this);
 
-  /// Returns true if this does not contain upper case letters
+  /// Returns true if the String does not contain upper case letters.
   ///
-  /// If this is null then we return true.
+  /// If the String is null then we return true.
   ///
   ///
   /// Example:
@@ -42,7 +46,7 @@ extension StringEx on String {
   ///
   bool isLowerCase() => Style.isLowerCase(this);
 
-  /// Checks if this is a number by attempting to parse it
+  /// Checks if the String is a number by attempting to parse it
   /// as a double.
   /// INFINITY and NaN are not treated as numbers.
   ///
@@ -52,7 +56,7 @@ extension StringEx on String {
   /// ```
   bool isNumeric() => Type.isNumeric(this);
 
-  /// returns true if this only contains
+  /// returns true if the String only contains
   /// ascii characters. (0 - 128)
   ///
   /// ```dart
@@ -61,7 +65,7 @@ extension StringEx on String {
   /// ```
   bool isAscii() => Type.isAscii(this);
 
-  /// Returns true if this does not contain any lower case letters.
+  /// Returns true if the String does not contain any lower case letters.
   ///
   /// Example:
   /// ```dart
@@ -77,9 +81,10 @@ extension StringEx on String {
   ///
   bool isUpperCase() => Style.isUpperCase(this);
 
-  /// Returns the first [length] characters from this
-  /// If [length] is longer than this then the result is padded
-  /// according to [pad]
+  /// Returns the first [length] characters from the String.
+  /// If [length] is longer than the String then the result is padded
+  /// according to [pad].
+  ///
   /// ```dart
   /// 'ab'.left(3, pad: Pad.left);
   /// -> ' ab'
@@ -96,9 +101,11 @@ extension StringEx on String {
   /// ```
   String reverse() => Transform.reverse(this);
 
-  /// Returns the right 'n' characters from  this.
+  /// Returns the right 'n' characters from  the String.
+  ///
   /// If [length] is greater than the length of this then padding
   /// is applied according to [pad].
+  ///
   /// ```dart
   /// 'ab'.right(3, pad: Pad.right)
   /// -> 'ab '
@@ -106,9 +113,9 @@ extension StringEx on String {
   String right(int length, {Pad pad = Pad.none}) =>
       Part.right(this, length, pad: pad);
 
-  /// Returns true if this starts with the lower case character.
+  /// Returns true if the String starts with a lower case character.
   ///
-  /// Returns false if this is empty
+  /// Returns false if the String is empty.
   ///
   /// Example:
   /// ```dart
@@ -120,9 +127,9 @@ extension StringEx on String {
   /// ```
   bool startsWithLowerCase() => Style.startsWithLowerCase(this);
 
-  /// Returns true if the string starts with the upper case character.
+  /// Returns true if the String starts with an upper case character.
   ///
-  /// Returns false if this is empty.
+  /// Returns false if the String is empty.
   ///
   /// Example:
   /// ```dart
@@ -134,9 +141,10 @@ extension StringEx on String {
   ///```
   bool startsWithUpperCase() => Style.startsWithUpperCase(this);
 
-  /// Returns this in the form "UpperCamelCase" or "lowerCamelCase".
+  /// Returns the String in the form "UpperCamelCase" or "lowerCamelCase".
   ///
   /// If [lower] is true, then the first character will be lower case.
+  ///
   ///
   /// Example:
   /// ```dart
@@ -146,7 +154,7 @@ extension StringEx on String {
   String toCamelCase({bool lower = false}) =>
       Style.toCamelCase(this, lower: lower);
 
-  /// Returns this with the first character capitalized.
+  /// Returns the String with the first character capitalized.
   ///
   /// Example:
   /// ```
@@ -169,7 +177,7 @@ extension StringEx on String {
   /// Example:
   /// ```dart
   ///     print("Hello 'world' \n".toEscaped());
-  ///     => Hello \'world\' \n
+  ///     => 'Hello \'world\' \n'
   /// ```
   String toEscaped({String Function(int charCode)? encode}) =>
       Transform.toEscape(this, encode: encode);
@@ -186,13 +194,14 @@ extension StringEx on String {
   /// Example:
   /// ```dart
   ///     print("Hello 'world' \n".toPrintable());
-  ///     => Hello \'world\' \n
+  ///     => 'Hello \'world\' \n'
   /// ```
   String toPrintable() => Transform.toPrintable(this);
 
-  /// Converts this to proper case by capitalising
+  /// Converts the String to proper case by capitalising
   /// the first letter of each word and forcing all other characters
   /// to lower case.
+  ///
   /// Example:
   /// ```dart
   /// "one two".toProperCase();
@@ -200,7 +209,7 @@ extension StringEx on String {
   /// ```
   String toProperCase() => Style.toProperCase(this);
 
-  /// Converts this to snake_case by
+  /// Converts the String to snake_case by
   /// inserting an underscore before each
   /// sequence of upper case letters and
   /// changing all upper case letters to lowercase.
@@ -213,7 +222,7 @@ extension StringEx on String {
   String toSnakeCase() => Style.toSnakeCase(this);
 
   /// Compare two strings ignoring case.
-  /// If rhs is null then returns false
-  /// if both are the same, ignoring case, returns true.
+  /// If rhs is null then returns false.
+  /// Returns true, if both are the same, ignoring case.
   bool equalsIgnoreCase(String? rhs) => Strings.equalsIgnoreCase(this, rhs);
 }
