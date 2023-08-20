@@ -13,4 +13,10 @@ void main() {
     expect(Strings.isNotBlank('  '), isFalse);
     expect(Strings.isNotBlank('abc'), isTrue);
   });
+
+  test('orElseOnBlank ...', () async {
+    expect(Strings.orElseOnBlank(null, 'else'), equals('else'));
+    expect(Strings.orElseOnBlank('  ', 'else'), equals('else'));
+    expect(Strings.orElseOnBlank('abc', 'else'), equals('abc'));
+  });
 }

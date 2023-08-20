@@ -1,3 +1,6 @@
+# 2.0.3
+- added method orElseOnBlank
+
 # 2.0.2
 - Improvements to the API documentation.
 - Updated references to underscore to its new name toSnakeCase Fixed the StringEx class description.
