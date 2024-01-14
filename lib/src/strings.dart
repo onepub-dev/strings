@@ -45,6 +45,14 @@ class Strings {
   /// ascii characters. (0 - 128)
   static bool isAscii(String? string) => Type.isAscii(string);
 
+  /// returns true if the [string] only contains whitespace characters.
+  /// We use the same definition of whitespace as String.trim.
+  static bool isWhitespace(String string) => Style.isWhitespace(string);
+
+  /// returns true if the [rune] is a whitespace characters.
+  /// We use the same definition of whitespace as String.trim.
+  static bool isWhitespaceRune(int rune) => Style.isWhitespaceRune(rune);
+
   /// true if the [string] is null, or is a zero length String
   static bool isEmpty(String? string) => Empty.isEmpty(string);
 

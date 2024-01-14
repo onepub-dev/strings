@@ -170,6 +170,24 @@ void main() {
       expect(actual, expected, reason: subject);
     }
   });
+
+  test('isWhitspace', () {
+    const space = ' ';
+    const tab = '\t';
+    const newline = '\n';
+    const mixed = ' \t\n';
+    //
+    expect(Strings.isWhitespaceRune(space.runes.first), isTrue);
+    expect(Strings.isWhitespaceRune(tab.runes.first), isTrue);
+    expect(Strings.isWhitespaceRune(newline.runes.first), isTrue);
+    expect(Strings.isWhitespaceRune('a'.runes.first), isFalse);
+
+    expect(Strings.isWhitespace(space), isTrue);
+    expect(Strings.isWhitespace(tab), isTrue);
+    expect(Strings.isWhitespace(newline), isTrue);
+    expect(Strings.isWhitespace(mixed), isTrue);
+    expect(Strings.isWhitespace(' a'), isFalse);
+  });
 }
 
 void _prepare() {
