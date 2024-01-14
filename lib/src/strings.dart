@@ -171,6 +171,11 @@ class Strings {
   static String orElse(String? string, String elsestring) =>
       Empty.orElse(string, elsestring);
 
+  /// If the [string] is not blank then we return [string]
+  /// otherwise we return [elseString]
+  static String orElseOnBlank(String? string, String elseString) =>
+      Blank.orElse(string, elseString);
+
   /// If [string] is not null, then return [string]
   /// If [string] is null, calls [elsestring] and return the result.
   static String orElseCall(String? string, String Function() elsestring) =>
