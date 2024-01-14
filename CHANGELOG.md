@@ -1,3 +1,7 @@
+# 3.0.0
+- migrated to dart 3.x
+- added isWhitespace method.
+
 # 2.0.3
 - added method orElseOnBlank
 
