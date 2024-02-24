@@ -42,6 +42,10 @@ class Strings {
   static bool isNumeric(String? string) => Type.isNumeric(string);
 
   /// returns true if [string] only contains
+  /// digits
+  static bool isDigits(String? string) => Type.isDigits(string);
+
+  /// returns true if [string] only contains
   /// ascii characters. (0 - 128)
   static bool isAscii(String? string) => Type.isAscii(string);
 

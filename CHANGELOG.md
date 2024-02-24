@@ -1,3 +1,6 @@
+# 3.1.1
+- add the method isDigits.
+
 # 3.1.0
 - add the within and upTo methods.
 # 3.0.0

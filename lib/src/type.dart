@@ -39,4 +39,24 @@ class Type {
     }
     return true;
   }
+
+  static const _digits = '0123456789';
+
+  /// Checks that the string only contains digits.
+  ///
+  static bool isDigits(String? string) {
+    if (string == null) {
+      return false;
+    }
+    var valid = true;
+
+    for (var i = 0; i < string.length; i++) {
+      final char = string[i];
+      if (!_digits.contains(char)) {
+        valid = false;
+        break;
+      }
+    }
+    return valid;
+  }
 }
