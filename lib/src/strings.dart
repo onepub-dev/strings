@@ -13,7 +13,7 @@ import 'type.dart';
 /// extend the set of  functions available the core String class
 /// as well as provding safe methods when working with nullable
 /// Strings.
-/// A Strings method will never thrown an NPE and aim to provide an
+/// A Strings method will never thrown an NPE and aims to provide the
 /// expected result by treating the null as an empty String or
 /// a space filled String where a range access is applied.
 ///
@@ -246,6 +246,29 @@ class Strings {
   /// above rules are applied.
   static String right(String? string, int take, {Pad pad = Pad.none}) =>
       Part.right(string, take, pad: pad);
+
+  /// Returns the string bounded by the [left] and [right] delimiters.
+  /// Throws an [ArgumentError] exception if either of the delimiters
+  /// are missing.
+  /// If there are nested delimiters we return the outer most
+  /// delimiters.
+  /// ``` dart
+  ///  final result= Strings.within("<AnInstance>", '<', '>');
+  ///  result == 'AnInstance';
+  ///
+  /// ```
+  ///
+  static String within(String string, String left, String right) =>
+      Part.within(string, left, right);
+
+  /// Returns the left most part of a string upto,
+  /// but not including, the [delimiter]
+  ///
+  /// If there is no [delimiter] found then the entire string
+  /// is returned.
+  ///
+  static String upTo(String string, String delimiter) =>
+      Part.upTo(string, delimiter);
 
 //
 // Methods that apply a style to  a String

@@ -144,4 +144,38 @@ class Part {
         return string;
     }
   }
+
+  /// Returns the string bounded by the left and right delimiters.
+  /// Throws an exception if either of the delimiters are missing.
+  /// If there are nested delimiters we return the outer most
+  /// delimiters.
+  static String within(String string, String left, String right) {
+    final leftIndex = string.indexOf(left);
+    final rightIndex = string.lastIndexOf(right);
+
+    if (leftIndex == -1) {
+      throw ArgumentError('The left bounding character was missing');
+    }
+
+    if (rightIndex == -1) {
+      throw ArgumentError('The right bounding character was missing');
+    }
+
+    final within = string.substring(leftIndex + 1, rightIndex);
+    return within;
+  }
+
+  /// Returns the left most part of a string upto,
+  /// but not including, the [delimiter]
+  ///
+  /// If there is no [delimiter] found then the entire string
+  /// is returned.
+  ///
+  static String upTo(String string, String delimiter) {
+    var index = string.indexOf(delimiter);
+    if (index == -1) {
+      index = string.length;
+    }
+    return string.substring(0, index);
+  }
 }

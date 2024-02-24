@@ -1,3 +1,5 @@
+# 3.1.0
+- add the within and upTo methods.
 # 3.0.0
 - migrated to dart 3.x
 - added isWhitespace method.
