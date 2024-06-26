@@ -1,3 +1,6 @@
+# 3.1.2
+- added an option to the join function to excluded null or empty elements.
+
 # 3.1.1
 - add the method isDigits.
 
