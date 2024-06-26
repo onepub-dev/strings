@@ -28,6 +28,21 @@ void main() {
     //
     actual = Strings.join([1, 2], separator: ', ');
     expect(actual, '1, 2', reason: subject);
+
+    // empty elements
+    expect(Strings.join(['a', 'b', 'c'], excludeEmpty: true), equals('abc'));
+    expect(Strings.join(['a', '', 'c'], excludeEmpty: true), equals('ac'));
+    expect(Strings.join(['a', '', 'c'], separator: ', ', excludeEmpty: true),
+        equals('a, c'));
+    expect(
+        Strings.join(['a', '', 'c', null], separator: ', ', excludeEmpty: true),
+        equals('a, c'));
+
+    actual = Strings.join([1, 2, null], separator: ', ', excludeEmpty: true);
+    expect(actual, '1, 2', reason: subject);
+
+    actual = Strings.join([1, null, 3], separator: ', ', excludeEmpty: true);
+    expect(actual, '1, 3', reason: subject);
   });
 
   test('left ...', () async {

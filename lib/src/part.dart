@@ -2,6 +2,8 @@
 
 import 'package:characters/characters.dart';
 
+import '../strings.dart';
+
 /// Control the padding on functions that allow the result
 /// to be padded.
 enum Pad {
@@ -87,6 +89,7 @@ class Part {
   /// If the [list] is null then an empty String is returned.
   /// If any element in [list] is null it is treated as an empty string
   /// but still included in the list.
+  /// If [excludeEmpty] is true then any empty elements are not included.
   ///
   /// Example:
   ///     print(join(null));
@@ -96,8 +99,20 @@ class Part {
   ///     => 12
   ///     print(join([1, 2], separator: ','));
   ///     => 1,2
-  static String join(List<Object?>? list, {String separator = ''}) =>
-      list == null ? '' : list.map((element) => element ?? '').join(separator);
+  static String join(List<Object?>? list,
+      {String separator = '', bool excludeEmpty = false}) {
+    if (list == null) {
+      return '';
+    }
+
+    if (excludeEmpty) {
+      final nonEmptyElements = list.where((element) =>
+          element != null &&
+          ((element is! String) || Strings.isNotBlank(element)));
+      return nonEmptyElements.map((element) => element ?? '').join(separator);
+    }
+    return list.map((element) => element ?? '').join(separator);
+  }
 
   /// Returns the first [take] characters from [string]
   /// If [take] is longer than [string] then the result is padded

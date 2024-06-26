@@ -212,8 +212,9 @@ class Strings {
   ///     => 12
   ///     print(join([1, 2], separator: ','));
   ///     => 1,2
-  static String join(List<Object?>? list, {String separator = ''}) =>
-      Part.join(list, separator: separator);
+  static String join(List<Object?>? list,
+          {String separator = '', bool excludeEmpty = false}) =>
+      Part.join(list, separator: separator, excludeEmpty: excludeEmpty);
 
   /// Obscures part of [string] by replace the characters between
   /// [start] (inclusive) and [end] exclusive with [replaceWith]

@@ -40,7 +40,7 @@ class Style {
     return true;
   }
 
-// TODO: Improve list of printable characters
+// TODO(bsutton): Improve list of printable characters
   static bool isPrintable(int? character) {
     if (character == null) {
       return false;
