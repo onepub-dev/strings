@@ -1,3 +1,15 @@
+# 4.0.0
+
+## BREAKING CHANGES
+
+- ⚠️ **Minimum Dart SDK is now `>=3.7.0`.** This version drops support for Dart 3.0–3.6 in order to upgrade to the latest version of the `unicode` package.
+- ⚠️ If you are on an older Dart version, you can continue using version `^3.1.2`.
+
+## INTERNAL CHANGES
+
+- Updated internal usage of `unicode.generalCategories` constants to use lowercase fields (e.g. `unicode.control` instead of `unicode.CONTROL`), per the latest `unicode` API in `1.1.8`.
+- No changes to the public API.
+
 # 3.1.2
 - added an option to the join function to excluded null or empty elements.
 

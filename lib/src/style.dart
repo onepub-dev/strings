@@ -46,13 +46,13 @@ class Style {
       return false;
     }
     switch (unicode.generalCategories[character]) {
-      case unicode.CONTROL:
-      case unicode.FORMAT:
-      case unicode.LINE_SEPARATOR:
-      case unicode.NOT_ASSIGNED:
-      case unicode.PARAGRAPH_SEPARATOR:
-      case unicode.PRIVATE_USE:
-      case unicode.SURROGATE:
+      case unicode.control:
+      case unicode.format:
+      case unicode.lineSeparator:
+      case unicode.notAssigned:
+      case unicode.paragraphSeparator:
+      case unicode.privateUse:
+      case unicode.surrogate:
         return false;
       default:
         return true;
