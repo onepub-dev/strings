@@ -40,7 +40,8 @@ class Style {
     return true;
   }
 
-// TODO(bsutton): Improve list of printable characters
+/// True if [character] is visible if printed
+/// to the console.
   static bool isPrintable(int? character) {
     if (character == null) {
       return false;
