@@ -63,8 +63,11 @@ void main() {
     final actual = Strings.toPrintable('Keycap: 0 Emoji 0️⃣.');
     expect(actual, 'Keycap: 0 Emoji 0️⃣.', reason: subject);
     expect('\n'.toPrintable(), r'\n', reason: subject);
-    expect('\n\r\tabcdef123'.toPrintable(), r'\n\r\tabcdef123',
-        reason: subject);
+    expect(
+      '\n\r\tabcdef123'.toPrintable(),
+      r'\n\r\tabcdef123',
+      reason: subject,
+    );
   });
 
   test('toUnicode', () {
@@ -75,5 +78,32 @@ void main() {
     //
     actual = Strings.toUnicode(127);
     expect(actual, r'\u007f', reason: subject);
+  });
+
+  group('Transform.orJoin', () {
+    test('returns empty string for empty list', () {
+      expect(Strings.conjuctionJoin([]), '');
+    });
+
+    test('returns single item for a list with one element', () {
+      expect(Strings.conjuctionJoin(['A']), 'A');
+    });
+
+    test('joins two items with default separator and last', () {
+      expect(Strings.conjuctionJoin(['A', 'B']), 'A or B');
+    });
+
+    test('joins multiple items with commas and default last', () {
+      expect(Strings.conjuctionJoin(['A', 'B', 'C']), 'A, B or C');
+    });
+
+    test('uses custom separator and last strings', () {
+      final result = Strings.conjuctionJoin(
+        ['X', 'Y', 'Z'],
+        separator: ' - ',
+        conjuction: ' & ',
+      );
+      expect(result, 'X - Y & Z');
+    });
   });
 }

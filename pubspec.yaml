@@ -1,5 +1,5 @@
 name: strings
-version: 4.0.0
+version: 4.0.1
 documentation: https://strings.onepub.dev
 description: Large collection of String functions aimed at extending the String class whilst providing safer methods for working with nullable Strings.
 repository: https://github.com/onepub-dev/strings

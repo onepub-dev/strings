@@ -212,18 +212,23 @@ class Strings {
   ///     => 12
   ///     print(join([1, 2], separator: ','));
   ///     => 1,2
-  static String join(List<Object?>? list,
-          {String separator = '', bool excludeEmpty = false}) =>
-      Part.join(list, separator: separator, excludeEmpty: excludeEmpty);
+  static String join(
+    List<Object?>? list, {
+    String separator = '',
+    bool excludeEmpty = false,
+  }) => Part.join(list, separator: separator, excludeEmpty: excludeEmpty);
 
   /// Obscures part of [string] by replace the characters between
   /// [start] (inclusive) and [end] exclusive with [replaceWith]
   ///
   /// If start is not passed then it is defaults to 0.
   /// If end is not passed it defaults to the end of the string.
-  static String hidePart(String? string,
-          {int start = 0, int? end, String replaceWith = '*'}) =>
-      Part.hidePart(string, start: start, end: end, replaceWith: replaceWith);
+  static String hidePart(
+    String? string, {
+    int start = 0,
+    int? end,
+    String replaceWith = '*',
+  }) => Part.hidePart(string, start: start, end: end, replaceWith: replaceWith);
 
   /// Returns left most [take] characters from [string].
   ///
@@ -275,9 +280,9 @@ class Strings {
   static String upTo(String string, String delimiter) =>
       Part.upTo(string, delimiter);
 
-//
-// Methods that apply a style to  a String
-//
+  //
+  // Methods that apply a style to  a String
+  //
 
   /// Converts [sentence] to proper case by capitalising
   /// the first letter of each word and forcing all other characters
@@ -327,9 +332,10 @@ class Strings {
   ///     print(toEscaped("Hello 'world' \n"));
   ///     => Hello \'world\' \n
   /// ```
-  static String toEscaped(String? string,
-          {String Function(int charCode)? encode}) =>
-      Transform.toEscape(string, encode: encode);
+  static String toEscaped(
+    String? string, {
+    String Function(int charCode)? encode,
+  }) => Transform.toEscape(string, encode: encode);
 
   /// Returns an Unicode representation of the character code.
   ///
@@ -341,6 +347,25 @@ class Strings {
   ///     => \u0030
   /// ```
   static String toUnicode(int? charCode) => Transform.toUnicode(charCode);
+
+  /// Concates a list by inserting [separator] between
+  /// each item in the list, except for the last separator
+  /// where [conjuction] is used instead.
+  /// If you don't pass [separator] then ',' is used.
+  /// If you don't pass [conjuction] then 'or' is used.
+  /// If the [list] is empty then an empty String is returned.
+  ///
+  /// Example:
+  /// ```dart
+  ///     final list = []'Girl', 'Boy', 'Other']
+  ///     print(Strings.conjuctionJoin(list));
+  ///     => Girl, Boy or Other
+  ///
+  static String conjuctionJoin(
+    List<String> list, {
+    String separator = ', ',
+    String conjuction = ' or ',
+  }) => Transform.conjuctionJoin(list, separator: separator, last: conjuction);
 
   /// Returns an escaped string.
   ///
@@ -404,9 +429,11 @@ class Strings {
   static Runes runes(String? string) => Safe.runes(string);
 
   /// Refer to [String.allMatches]
-  static Iterable<Match> allMatches(String? pattern, String string,
-          [int start = 0]) =>
-      Safe.allMatches(pattern, string, start);
+  static Iterable<Match> allMatches(
+    String? pattern,
+    String string, [
+    int start = 0,
+  ]) => Safe.allMatches(pattern, string, start);
 
   /// Refer to [Safe.codeUnitAt]
   ///
@@ -421,9 +448,11 @@ class Strings {
   /// If both are null then we return -1
   /// If one of them is null then we use [nullIsLessThan] to determine if
   /// we return -1  or 1.
-  static int compareTo(String? string, String? other,
-          {bool nullIsLessThan = true}) =>
-      Safe.compareTo(string, other, nullIsLessThan: nullIsLessThan);
+  static int compareTo(
+    String? string,
+    String? other, {
+    bool nullIsLessThan = true,
+  }) => Safe.compareTo(string, other, nullIsLessThan: nullIsLessThan);
 
   /// Refer to [Safe.contains]
   static bool contains(String? string, Pattern other, [int startIndex = 0]) =>
@@ -442,9 +471,11 @@ class Strings {
       Safe.lastIndexOf(string, pattern, start);
 
   /// Refer to [Safe.matchAsPrefix]
-  static Match? matchAsPrefix(String? pattern, String string,
-          [int start = 0]) =>
-      Safe.matchAsPrefix(pattern, string, start);
+  static Match? matchAsPrefix(
+    String? pattern,
+    String string, [
+    int start = 0,
+  ]) => Safe.matchAsPrefix(pattern, string, start);
 
   /// Refer to [Safe.padLeft]
   static String padLeft(String? string, int width, [String padding = ' ']) =>
@@ -460,35 +491,51 @@ class Strings {
 
   /// Refer to [Safe.replaceAllMapped]
   static String replaceAllMapped(
-          String? string, Pattern from, String Function(Match match) replace) =>
-      Safe.replaceAllMapped(string, from, replace);
+    String? string,
+    Pattern from,
+    String Function(Match match) replace,
+  ) => Safe.replaceAllMapped(string, from, replace);
 
   /// Refer to [Safe.replaceFirst]
-  static String replaceFirst(String? string, Pattern from, String to,
-          [int startIndex = 0]) =>
-      Safe.replaceFirst(string, from, to, startIndex);
+  static String replaceFirst(
+    String? string,
+    Pattern from,
+    String to, [
+    int startIndex = 0,
+  ]) => Safe.replaceFirst(string, from, to, startIndex);
 
   /// Refer to [Safe.replaceFirstMapped]
   static String replaceFirstMapped(
-          String? string, Pattern from, String Function(Match match) replace,
-          [int startIndex = 0]) =>
-      Safe.replaceFirstMapped(string, from, replace, startIndex);
+    String? string,
+    Pattern from,
+    String Function(Match match) replace, [
+    int startIndex = 0,
+  ]) => Safe.replaceFirstMapped(string, from, replace, startIndex);
 
   /// Refer to [Safe.replaceRange]
   static String replaceRange(
-          String? string, int start, int? end, String replacement) =>
-      Safe.replaceRange(string, start, end, replacement);
+    String? string,
+    int start,
+    int? end,
+    String replacement,
+  ) => Safe.replaceRange(string, start, end, replacement);
 
   /// Refer to [Safe.split]
   static List<String> split(String? string, Pattern pattern) =>
       Safe.split(string, pattern);
 
   /// Refer to [Safe.splitMapJoin]
-  static String splitMapJoin(String? string, Pattern pattern,
-          {String Function(Match)? onMatch,
-          String Function(String)? onNonMatch}) =>
-      Safe.splitMapJoin(string, pattern,
-          onMatch: onMatch, onNonMatch: onNonMatch);
+  static String splitMapJoin(
+    String? string,
+    Pattern pattern, {
+    String Function(Match)? onMatch,
+    String Function(String)? onNonMatch,
+  }) => Safe.splitMapJoin(
+    string,
+    pattern,
+    onMatch: onMatch,
+    onNonMatch: onNonMatch,
+  );
 
   /// Refer to [Safe.startsWith]
   static bool startsWith(String? string, Pattern pattern, [int index = 0]) =>

@@ -21,8 +21,10 @@ class Transform {
   }
 
   /// toEscape
-  static String toEscape(String? string,
-      {String Function(int charCode)? encode}) {
+  static String toEscape(
+    String? string, {
+    String Function(int charCode)? encode,
+  }) {
     if (string == null || string.isEmpty) {
       return '';
     }
@@ -139,5 +141,23 @@ class Transform {
     }
 
     return '\\u$hex';
+  }
+
+  /// Concates a list by inserting [separator] between
+  /// each item in the list, except for the last separator
+  /// where [last] is used instead.
+  static String conjuctionJoin(
+    List<String> list, {
+    String separator = ', ',
+    String last = ' or ',
+  }) {
+    switch (list.length) {
+      case 0:
+        return '';
+      case 1:
+        return list.first;
+      default:
+        return '''${list.sublist(0, list.length - 1).join(separator)}$last${list.last}''';
+    }
   }
 }
