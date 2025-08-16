@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_classes_with_only_static_members
-
 import 'package:characters/characters.dart';
 
 import '../strings.dart';
@@ -40,13 +38,10 @@ class Transform {
           switch (c) {
             case 9:
               sb.write(r'\t');
-              break;
             case 10:
               sb.write(r'\n');
-              break;
             case 13:
               sb.write(r'\r');
-              break;
             default:
               sb.write(encode(c));
           }
@@ -54,16 +49,12 @@ class Transform {
           switch (c) {
             case 34:
               sb.write(r'\"');
-              break;
             case 36:
               sb.write(r'\$');
-              break;
             case 39:
               sb.write(r"\'");
-              break;
             case 92:
               sb.write(r'\\');
-              break;
             default:
               sb.write(s);
           }
@@ -101,13 +92,10 @@ class Transform {
           switch (c) {
             case 9:
               sb.write(r'\t');
-              break;
             case 10:
               sb.write(r'\n');
-              break;
             case 13:
               sb.write(r'\r');
-              break;
             default:
               sb.write(Strings.toUnicode(c));
           }

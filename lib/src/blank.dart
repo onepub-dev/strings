@@ -1,6 +1,5 @@
 import 'empty.dart';
 
-// ignore_for_file: avoid_classes_with_only_static_members
 class Blank {
   /// true if the [string] is null or Blank.
   /// A string that only contains whitespace is considered blank.

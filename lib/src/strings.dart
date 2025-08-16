@@ -1,6 +1,3 @@
-// ignore_for_file: always_put_control_body_on_new_line
-// ignore_for_file: avoid_classes_with_only_static_members
-
 import 'blank.dart';
 import 'empty.dart';
 import 'part.dart';
@@ -191,7 +188,7 @@ class Strings {
   /// string and adding '...' to the truncated string.
   ///
   /// If [string] is null an empty string is returned.
-  /// ```
+  /// ```dart
   /// Strings.abbreviate('Hello World', 6) == 'Hel...'
   /// ```
   /// The minimum string for [maxWidth] is 4
@@ -393,11 +390,19 @@ class Strings {
   /// If one of them is null returns false
   /// if both are the same returns true.
   static bool equals(String? lhs, String? rhs) {
-    if (lhs == null && rhs == null) return true;
+    if (lhs == null && rhs == null) {
+      return true;
+    }
 
-    if (lhs == null) return false;
-    if (rhs == null) return false;
-    if (!(lhs == rhs)) return false;
+    if (lhs == null) {
+      return false;
+    }
+    if (rhs == null) {
+      return false;
+    }
+    if (!(lhs == rhs)) {
+      return false;
+    }
 
     return true;
   }
@@ -408,9 +413,15 @@ class Strings {
   /// If one of them is null returns false
   /// if both are the same, ignoring case, returns true.
   static bool equalsIgnoreCase(String? lhs, String? rhs) {
-    if (lhs == null && rhs == null) return true;
-    if (lhs == null) return false;
-    if (rhs == null) return false;
+    if (lhs == null && rhs == null) {
+      return true;
+    }
+    if (lhs == null) {
+      return false;
+    }
+    if (rhs == null) {
+      return false;
+    }
 
     return lhs.toLowerCase() == rhs.toLowerCase();
   }

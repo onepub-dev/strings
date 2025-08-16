@@ -2,7 +2,7 @@ import 'package:strings/strings.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('isNumeric ...', () async {
+  test('isNumeric ...', () {
     expect(Strings.isNumeric(null), isFalse);
     expect(Strings.isNumeric(''), isFalse);
     expect(Strings.isNumeric('x'), isFalse);
@@ -21,6 +21,8 @@ void main() {
   test('isAscii', () {
     expect(Strings.isAscii('a'), true);
     expect(
-        Strings.isAscii('the quick brown fox jumped over the lazy dog'), true);
+      Strings.isAscii('the quick brown fox jumped over the lazy dog'),
+      true,
+    );
   });
 }

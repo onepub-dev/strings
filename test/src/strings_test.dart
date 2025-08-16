@@ -2,12 +2,12 @@ import 'package:strings/strings.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('orElse ...', () async {
+  test('orElse ...', () {
     expect(Strings.orElse(null, 'one'), equals('one'));
     expect(Strings.orElse('', 'one'), equals(''));
   });
 
-  test('equals ...', () async {
+  test('equals ...', () {
     expect(Strings.equals(null, null), isTrue);
     expect(Strings.equals('one', null), isFalse);
     expect(Strings.equals(null, 'one'), isFalse);

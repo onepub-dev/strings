@@ -1,3 +1,6 @@
+// public api
+// ignore_for_file: omit_obvious_property_types
+
 const int asciiEnd = 0x7f;
 
 const int asciiStart = 0x0;

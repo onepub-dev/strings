@@ -2,7 +2,7 @@ import 'package:strings/strings.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('extension ...', () async {
+  test('extension ...', () {
     expect('123'.isNumeric(), true);
     expect('abc'.isLowerCase(), true);
     expect('ABC'.isUpperCase(), true);

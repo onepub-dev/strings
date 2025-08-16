@@ -1,13 +1,13 @@
 import 'package:strings/strings.dart';
 import 'package:test/test.dart';
 
-final List<List<String>> _underscoreCamelCase = <List<String>>[];
+final _underscoreCamelCase = <List<String>>[];
 
-final List<List<String>> _underscoreCamelCaseLower = <List<String>>[];
+final _underscoreCamelCaseLower = <List<String>>[];
 void main() {
   setUpAll(_prepare);
 
-  test('toProperCase ...', () async {
+  test('toProperCase ...', () {
     expect(Strings.toProperCase(null), equals(''));
     expect(Strings.toProperCase(''), equals(''));
     expect(Strings.toProperCase('one'), equals('One'));
@@ -194,11 +194,15 @@ void _prepare() {
   _underscoreCamelCase.add(['DartVm DartCore', 'dart_vm dart_core']);
   _underscoreCamelCaseLower.add(['dartVm dartCore', 'dart_vm dart_core']);
   _underscoreCamelCase.add([' Dart VM DartCore X', ' dart v_m dart_core x']);
-  _underscoreCamelCaseLower
-      .add([' dart vM dartCore x', ' dart v_m dart_core x']);
+  _underscoreCamelCaseLower.add([
+    ' dart vM dartCore x',
+    ' dart v_m dart_core x',
+  ]);
   _underscoreCamelCase.add([' Dart VM Dart1Core X', ' dart v_m dart1_core x']);
-  _underscoreCamelCaseLower
-      .add([' dart vM dart1Core x', ' dart v_m dart1_core x']);
+  _underscoreCamelCaseLower.add([
+    ' dart vM dart1Core x',
+    ' dart v_m dart1_core x',
+  ]);
   _underscoreCamelCase.add([' Dart_Core ', ' dart__core ']);
   _underscoreCamelCaseLower.add([' dart_Core ', ' dart__core ']);
   _underscoreCamelCase.add([' DartVM ', ' dart_v_m ']);

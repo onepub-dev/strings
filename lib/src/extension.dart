@@ -157,7 +157,7 @@ extension StringEx on String {
   /// Returns the String with the first character capitalized.
   ///
   /// Example:
-  /// ```
+  /// ```dart
   ///     print("dart".capitalize());
   ///     => Dart
   /// ```
@@ -165,7 +165,7 @@ extension StringEx on String {
 
   /// Returns an escaped string.
   /// The following characters are escaped
-  ///```
+  ///```text
   /// tab
   /// newline
   /// carriage return
@@ -185,7 +185,7 @@ extension StringEx on String {
   /// Returns an escaped string.
   /// The following characters are escaped
   ///
-  ///```
+  ///```text
   /// tab
   /// newline
   /// carriage return

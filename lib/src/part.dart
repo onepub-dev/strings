@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_classes_with_only_static_members
 
 import 'package:characters/characters.dart';
 
@@ -20,7 +19,7 @@ enum Pad {
 class Part {
   /// Abbreviate a string to [maxWidth] by truncating the
   /// string and adding '...' to then truncated string.
-  /// ```
+  /// ```dart
   /// Strings.abbreviate('Hello World', 6) == 'Hel...'
   /// ```
   /// Pass an [offset] to to start the abbreviation from the given

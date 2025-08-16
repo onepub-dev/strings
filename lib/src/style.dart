@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_classes_with_only_static_members
-
 import 'package:characters/characters.dart';
 import 'package:unicode/unicode.dart' as unicode;
 
@@ -40,8 +38,8 @@ class Style {
     return true;
   }
 
-/// True if [character] is visible if printed
-/// to the console.
+  /// True if [character] is visible if printed
+  /// to the console.
   static bool isPrintable(int? character) {
     if (character == null) {
       return false;
@@ -314,7 +312,7 @@ class Style {
     return result;
   }
 
-// toSnakeCase
+  // toSnakeCase
   static String toSnakeCase(String? string) {
     if (string == null || string.isEmpty) {
       return '';

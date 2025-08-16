@@ -2,7 +2,7 @@ import 'package:strings/strings.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('abbreviate ...', () async {
+  test('abbreviate ...', ()  {
     expect(Strings.abbreviate(null, 4), equals(''));
     expect(Strings.abbreviate('one', 3), 'one');
     expect(Strings.abbreviate('one two', 4), equals('o...'));
@@ -11,7 +11,7 @@ void main() {
     expect(Strings.abbreviate('one two', 7), equals('one two'));
   });
 
-  test('join ...', () async {
+  test('join ...', ()  {
     const subject = 'join';
 
     expect(Strings.join(['a', 'b', 'c']), equals('abc'));
@@ -45,7 +45,7 @@ void main() {
     expect(actual, '1, 3', reason: subject);
   });
 
-  test('left ...', () async {
+  test('left ...', ()  {
     expect(Strings.left(null, 2), equals(''));
     expect(Strings.left('one', 0), equals(''));
     expect(Strings.left('one', 1), equals('o'));
@@ -56,7 +56,7 @@ void main() {
     expect(Strings.left('one', 4, pad: Pad.right), 'one ');
   });
 
-  test('right ...', () async {
+  test('right ...', ()  {
     expect(Strings.right(null, 2), equals(''));
     expect(Strings.right('one', 0), equals(''));
     expect(Strings.right('one', 1), equals('e'));

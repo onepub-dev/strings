@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_classes_with_only_static_members
-
 class Empty {
   /// true if the [string] is null, or is a zero length String
   static bool isEmpty(String? string) {
