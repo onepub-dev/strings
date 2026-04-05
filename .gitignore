@@ -9,3 +9,5 @@ build/
 doc/api/
 .failed_tracker
 .history
+custom_lint.log
+logs/analyzer.txt
