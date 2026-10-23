@@ -26,6 +26,34 @@ core Dart String class:
 -> 'a no'
 ```
 
+# Literal boundaries
+
+Remove a single literal prefix or suffix, or split once while keeping the
+separator and both sides:
+
+```dart
+Strings.removePrefix('Bearer token', 'Bearer '); // 'token'
+'report.txt'.removeSuffix('.txt'); // 'report'
+Strings.partition('key=value=rest', '='); // ['key', '=', 'value=rest']
+'archive.tar.gz'.lastPartition('.'); // ['archive.tar', '.', 'gz']
+Strings.removePrefix(null, 'prefix'); // ''
+```
+
+All four methods are available as nullable `Strings` static methods and as
+`StringEx` extensions on `String`. Null input is treated as `''`. A null, empty
+or unmatched affix leaves the input unchanged. A null, empty or unmatched
+separator produces `[text, '', '']` for `partition` and `['', '', text]` for
+`lastPartition`. Partition results always contain three strings; joining them
+reconstructs the input.
+
+Matching is literal, case-sensitive UTF-16 matching, with no regular expressions
+or Unicode normalization. Complete emoji and combining sequences work as
+delimiters. Supplying only part of a surrogate pair or grapheme can split that
+character, just as with Dart's native string search and substring methods.
+
+These methods draw on Python's literal affix removal and partition operations.
+Unlike Python, empty separators are handled without throwing.
+
 # See the full list
 The Strings package incudes over 50 functions.
 

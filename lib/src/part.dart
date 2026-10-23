@@ -17,6 +17,54 @@ enum Pad {
 }
 
 class Part {
+  /// Removes one literal [prefix], treating null input as empty.
+  static String removePrefix(String? string, String? prefix) {
+    string ??= '';
+    if (prefix == null || prefix.isEmpty || !string.startsWith(prefix)) {
+      return string;
+    }
+    return string.substring(prefix.length);
+  }
+
+  /// Removes one literal [suffix], treating null input as empty.
+  static String removeSuffix(String? string, String? suffix) {
+    string ??= '';
+    if (suffix == null || suffix.isEmpty || !string.endsWith(suffix)) {
+      return string;
+    }
+    return string.substring(0, string.length - suffix.length);
+  }
+
+  /// Splits around the first literal [separator], retaining the separator.
+  static List<String> partition(String? string, String? separator) =>
+      _partition(string, separator, last: false);
+
+  /// Splits around the last literal [separator], retaining the separator.
+  static List<String> lastPartition(String? string, String? separator) =>
+      _partition(string, separator, last: true);
+
+  static List<String> _partition(
+    String? string,
+    String? separator, {
+    required bool last,
+  }) {
+    string ??= '';
+    final index =
+        separator == null || separator.isEmpty
+            ? -1
+            : last
+            ? string.lastIndexOf(separator)
+            : string.indexOf(separator);
+    if (index == -1) {
+      return last ? ['', '', string] : [string, '', ''];
+    }
+    return [
+      string.substring(0, index),
+      separator!,
+      string.substring(index + separator.length),
+    ];
+  }
+
   /// Abbreviate a string to [maxWidth] by truncating the
   /// string and adding '...' to then truncated string.
   /// ```dart

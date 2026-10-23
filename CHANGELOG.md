@@ -1,3 +1,10 @@
+# 4.1.0
+- Add removePrefix and removeSuffix for removing one literal affix.
+- Add partition and lastPartition for splitting once while retaining the delimiter.
+- Expose all four methods through nullable Strings statics and StringEx extensions.
+- Document and test null/empty arguments, missing delimiters and UTF-16 matching.
+- No new dependencies or changes to the Dart SDK requirement.
+
 # 4.0.1
 - add new method conjuctionJoin.
 

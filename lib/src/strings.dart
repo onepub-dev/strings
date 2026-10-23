@@ -184,6 +184,62 @@ class Strings {
 
   /// Methods that deal with parts of a string.
 
+  /// Removes [prefix] once if [string] starts with it.
+  ///
+  /// Null [string] is treated as empty. A null, empty or absent [prefix]
+  /// leaves the string unchanged. Matching is literal and case-sensitive,
+  /// using UTF-16 code units without Unicode normalization. A partial
+  /// surrogate pair or grapheme supplied as [prefix] can split that character.
+  ///
+  /// ```dart
+  /// Strings.removePrefix('pre-prefix', 'pre-'); // 'prefix'
+  /// ```
+  static String removePrefix(String? string, String? prefix) =>
+      Part.removePrefix(string, prefix);
+
+  /// Removes [suffix] once if [string] ends with it.
+  ///
+  /// Null [string] is treated as empty. A null, empty or absent [suffix]
+  /// leaves the string unchanged. Matching is literal and case-sensitive,
+  /// using UTF-16 code units without Unicode normalization. A partial
+  /// surrogate pair or grapheme supplied as [suffix] can split that character.
+  ///
+  /// ```dart
+  /// Strings.removeSuffix('report.txt', '.txt'); // 'report'
+  /// ```
+  static String removeSuffix(String? string, String? suffix) =>
+      Part.removeSuffix(string, suffix);
+
+  /// Splits [string] at the first [separator] into three strings:
+  /// the text before it, the separator itself and the text after it.
+  ///
+  /// Null [string] is treated as empty. If [separator] is null, empty or
+  /// absent, returns `[string, '', '']`. Matching is literal and
+  /// case-sensitive, using UTF-16 code units without Unicode normalization.
+  /// A partial surrogate pair or grapheme used as [separator] can split that
+  /// character. Joining the three strings always reconstructs the input.
+  ///
+  /// ```dart
+  /// Strings.partition('key=value=rest', '='); // ['key', '=', 'value=rest']
+  /// ```
+  static List<String> partition(String? string, String? separator) =>
+      Part.partition(string, separator);
+
+  /// Splits [string] at the last [separator] into three strings:
+  /// the text before it, the separator itself and the text after it.
+  ///
+  /// Null [string] is treated as empty. If [separator] is null, empty or
+  /// absent, returns `['', '', string]`. Matching is literal and
+  /// case-sensitive, using UTF-16 code units without Unicode normalization.
+  /// A partial surrogate pair or grapheme used as [separator] can split that
+  /// character. Joining the three strings always reconstructs the input.
+  ///
+  /// ```dart
+  /// Strings.lastPartition('archive.tar.gz', '.'); // ['archive.tar', '.', 'gz']
+  /// ```
+  static List<String> lastPartition(String? string, String? separator) =>
+      Part.lastPartition(string, separator);
+
   /// Abbreviate a string to [maxWidth] by truncating the
   /// string and adding '...' to the truncated string.
   ///

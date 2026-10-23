@@ -8,6 +8,24 @@ import 'type.dart';
 /// Provides a set of extensions for the core String class.
 ///
 extension StringEx on String {
+  /// Removes one literal [prefix]. See [Strings.removePrefix] for matching
+  /// and null/empty argument behavior.
+  String removePrefix(String? prefix) => Part.removePrefix(this, prefix);
+
+  /// Removes one literal [suffix]. See [Strings.removeSuffix] for matching
+  /// and null/empty argument behavior.
+  String removeSuffix(String? suffix) => Part.removeSuffix(this, suffix);
+
+  /// Splits at the first literal [separator], retaining it in a three-element
+  /// list. See [Strings.partition] for matching and absent separator behavior.
+  List<String> partition(String? separator) => Part.partition(this, separator);
+
+  /// Splits at the last literal [separator], retaining it in a three-element
+  /// list. See [Strings.lastPartition] for matching and absent separator
+  /// behavior.
+  List<String> lastPartition(String? separator) =>
+      Part.lastPartition(this, separator);
+
   /// Abbreviate a string to [maxWidth] by truncating the
   /// string and adding '...' to then truncated string.
   /// If [offset] is passed then the we begin abbreviating
