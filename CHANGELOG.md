@@ -1,3 +1,12 @@
+# 4.2.0
+- Add countMatches for non-overlapping literal counting.
+- Add substringAfter, substringAfterLast and substringBeforeLast.
+- Add normalizeSpace using the existing whitespace definition.
+- Add replaceLineEndings with LF by default and a literal custom replacement.
+- Expose all six additions through nullable Strings statics and StringEx extensions.
+- Document and test null/empty arguments, UTF-16 boundaries and Unicode whitespace.
+- Preserve all existing behavior, dependency constraints and the Dart 3.7 SDK floor.
+
 # 4.1.0
 - Add removePrefix and removeSuffix for removing one literal affix.
 - Add partition and lastPartition for splitting once while retaining the delimiter.

@@ -54,6 +54,43 @@ character, just as with Dart's native string search and substring methods.
 These methods draw on Python's literal affix removal and partition operations.
 Unlike Python, empty separators are handled without throwing.
 
+# Counting, extraction and whitespace
+
+```dart
+Strings.countMatches('aaaaa', 'aa'); // 2 (non-overlapping)
+'key=value=rest'.substringAfter('='); // 'value=rest'
+'archive.tar.gz'.substringAfterLast('.'); // 'gz'
+'archive.tar.gz'.substringBeforeLast('.'); // 'archive.tar'
+Strings.normalizeSpace('  hello\t world  '); // 'hello world'
+'one\r\ntwo\u2028three'.replaceLineEndings(); // 'one\ntwo\nthree'
+'one\ntwo'.replaceLineEndings(replacement: ' | '); // 'one | two'
+```
+
+All six methods have nullable `Strings` statics and `StringEx` extensions on
+`String`. Null input is treated as `''`. Search and extraction use literal,
+case-sensitive UTF-16 matching without normalization, as described above.
+
+| Method | Null, empty or missing search/separator |
+| --- | --- |
+| `countMatches` | `0` |
+| `substringAfter` | `''` |
+| `substringAfterLast` | `''` |
+| `substringBeforeLast` | Original input (or `''` for null) |
+
+`normalizeSpace` removes leading/trailing whitespace and collapses internal
+runs to one ASCII space. It uses the existing `Strings.isWhitespaceRune` set,
+including non-breaking spaces, U+180E and U+FEFF (BOM). Other text is preserved.
+
+`replaceLineEndings` recognizes CRLF as one ending, plus CR, LF, NEL (U+0085),
+form feed (U+000C), line separator (U+2028) and paragraph separator (U+2029).
+Vertical tab is unchanged. Its default replacement is LF on every platform;
+null or empty replacement removes endings. Replacement text is literal and
+is not processed again. Other code units are preserved exactly.
+
+The counting and extraction helpers draw on Apache Commons Lang, with empty
+separators treated consistently as absent. The newline set follows .NET's
+`ReplaceLineEndings`, using deterministic LF rather than a platform default.
+
 # See the full list
 The Strings package incudes over 50 functions.
 

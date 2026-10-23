@@ -8,6 +8,29 @@ import 'type.dart';
 /// Provides a set of extensions for the core String class.
 ///
 extension StringEx on String {
+  /// Counts non-overlapping literal matches. See [Strings.countMatches].
+  int countMatches(String? search) => Part.countMatches(this, search);
+
+  /// Returns text after the first separator. See [Strings.substringAfter].
+  String substringAfter(String? separator) =>
+      Part.substringAfter(this, separator);
+
+  /// Returns text after the last separator. See [Strings.substringAfterLast].
+  String substringAfterLast(String? separator) =>
+      Part.substringAfterLast(this, separator);
+
+  /// Returns text before the last separator. See [Strings.substringBeforeLast].
+  String substringBeforeLast(String? separator) =>
+      Part.substringBeforeLast(this, separator);
+
+  /// Trims and collapses whitespace. See [Strings.normalizeSpace].
+  String normalizeSpace() => Transform.normalizeSpace(this);
+
+  /// Replaces line endings. See [Strings.replaceLineEndings] for the newline
+  /// set and null/empty replacement behavior.
+  String replaceLineEndings({String? replacement = '\n'}) =>
+      Transform.replaceLineEndings(this, replacement: replacement);
+
   /// Removes one literal [prefix]. See [Strings.removePrefix] for matching
   /// and null/empty argument behavior.
   String removePrefix(String? prefix) => Part.removePrefix(this, prefix);

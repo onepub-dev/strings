@@ -5,6 +5,35 @@ import 'consts.dart';
 import 'style.dart';
 
 class Transform {
+  /// Trims and collapses the whitespace recognized by [Style.isWhitespaceRune].
+  static String normalizeSpace(String? string) {
+    final result = StringBuffer();
+    var pendingSpace = false;
+    // The whitespace predicate contains only BMP characters. Iterating code
+    // units preserves all other text, including unpaired surrogates, exactly.
+    for (final codeUnit in (string ?? '').codeUnits) {
+      if (Style.isWhitespaceRune(codeUnit)) {
+        pendingSpace = result.isNotEmpty;
+      } else {
+        if (pendingSpace) {
+          result.write(' ');
+          pendingSpace = false;
+        }
+        result.writeCharCode(codeUnit);
+      }
+    }
+    return result.toString();
+  }
+
+  /// Replaces CRLF, CR, LF, NEL, FF, LS and PS with literal replacement text.
+  static String replaceLineEndings(
+    String? string, {
+    String? replacement = '\n',
+  }) => (string ?? '').replaceAll(
+    RegExp(r'\r\n|[\r\n\u0085\u000C\u2028\u2029]'),
+    replacement ?? '',
+  );
+
   /// reverse
   static String reverse(String? string) {
     if (string == null) {

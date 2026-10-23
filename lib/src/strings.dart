@@ -162,6 +162,27 @@ class Strings {
   // Methods that transform a String
   //
 
+  /// Trims whitespace and replaces each internal run with one ASCII space.
+  ///
+  /// Null input returns `''`. Uses the existing [isWhitespaceRune] definition,
+  /// including non-breaking spaces, U+180E and U+FEFF (BOM). Other code units
+  /// are preserved exactly, including combining marks and surrogate pairs.
+  /// For example, `Strings.normalizeSpace('  a\t b  ')` returns `'a b'`.
+  static String normalizeSpace(String? string) =>
+      Transform.normalizeSpace(string);
+
+  /// Replaces line endings with [replacement], which defaults to LF (`'\n'`)
+  /// on every platform. Null input returns `''`.
+  ///
+  /// Recognizes CRLF as one ending, plus CR (U+000D), LF (U+000A), NEL
+  /// (U+0085), FF (U+000C), LS (U+2028) and PS (U+2029). Vertical tab is
+  /// unchanged. Null or empty replacement removes endings. Replacement is
+  /// literal and is not processed again; all other code units are preserved.
+  static String replaceLineEndings(
+    String? string, {
+    String? replacement = '\n',
+  }) => Transform.replaceLineEndings(string, replacement: replacement);
+
   /// If [string] is null we return a zero length string otherwise we
   /// return [string].
   ///
@@ -183,6 +204,43 @@ class Strings {
       Empty.orElseCall(string, elsestring);
 
   /// Methods that deal with parts of a string.
+
+  /// Counts non-overlapping literal occurrences of [search] in [string].
+  ///
+  /// Returns zero if either argument is null or empty. Matches are
+  /// case-sensitive UTF-16 code-unit matches, without Unicode normalization.
+  /// A partial surrogate pair or grapheme can match part of a character.
+  /// For example, `Strings.countMatches('aaaaa', 'aa')` returns `2`.
+  static int countMatches(String? string, String? search) =>
+      Part.countMatches(string, search);
+
+  /// Returns the text after the first literal [separator].
+  ///
+  /// Null input is empty. A null, empty or absent separator returns `''`.
+  /// Matching is case-sensitive UTF-16 matching without normalization;
+  /// a partial surrogate pair or grapheme can split a character.
+  /// For example, `Strings.substringAfter('a=b=c', '=')` returns `'b=c'`.
+  static String substringAfter(String? string, String? separator) =>
+      Part.substringAfter(string, separator);
+
+  /// Returns the text after the last literal [separator].
+  ///
+  /// Null input is empty. A null, empty or absent separator returns `''`.
+  /// Matching is case-sensitive UTF-16 matching without normalization;
+  /// a partial surrogate pair or grapheme can split a character.
+  /// For example, `Strings.substringAfterLast('a=b=c', '=')` returns `'c'`.
+  static String substringAfterLast(String? string, String? separator) =>
+      Part.substringAfterLast(string, separator);
+
+  /// Returns the text before the last literal [separator].
+  ///
+  /// Null input is empty. A null, empty or absent separator returns the input.
+  /// Matching is case-sensitive UTF-16 matching without normalization;
+  /// a partial surrogate pair or grapheme can split a character.
+  /// For example, `Strings.substringBeforeLast('a=b=c', '=')` returns `'a=b'`.
+  static String substringBeforeLast(String? string, String? separator) =>
+      Part.substringBeforeLast(string, separator);
+
 
   /// Removes [prefix] once if [string] starts with it.
   ///

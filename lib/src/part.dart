@@ -17,6 +17,54 @@ enum Pad {
 }
 
 class Part {
+  /// Counts non-overlapping literal matches, with null/empty arguments as zero.
+  static int countMatches(String? string, String? search) {
+    if (string == null || search == null || search.isEmpty) {
+      return 0;
+    }
+    var count = 0;
+    var start = 0;
+    while (start <= string.length - search.length) {
+      final index = string.indexOf(search, start);
+      if (index == -1) {
+        break;
+      }
+      count++;
+      start = index + search.length;
+    }
+    return count;
+  }
+
+  /// Returns text after the first nonempty literal separator, or empty.
+  static String substringAfter(String? string, String? separator) {
+    string ??= '';
+    if (separator == null || separator.isEmpty) {
+      return '';
+    }
+    final index = string.indexOf(separator);
+    return index == -1 ? '' : string.substring(index + separator.length);
+  }
+
+  /// Returns text after the last nonempty literal separator, or empty.
+  static String substringAfterLast(String? string, String? separator) {
+    string ??= '';
+    if (separator == null || separator.isEmpty) {
+      return '';
+    }
+    final index = string.lastIndexOf(separator);
+    return index == -1 ? '' : string.substring(index + separator.length);
+  }
+
+  /// Returns text before the last nonempty literal separator, or the input.
+  static String substringBeforeLast(String? string, String? separator) {
+    string ??= '';
+    if (separator == null || separator.isEmpty) {
+      return string;
+    }
+    final index = string.lastIndexOf(separator);
+    return index == -1 ? string : string.substring(0, index);
+  }
+
   /// Removes one literal [prefix], treating null input as empty.
   static String removePrefix(String? string, String? prefix) {
     string ??= '';
