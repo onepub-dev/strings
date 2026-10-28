@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: strings
+  structure:
+    - type: space
+      key: space-1
+      title: strings
+      path: strings
+      default: true
+      content:
+        directory: ./strings
