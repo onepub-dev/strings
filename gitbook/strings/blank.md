@@ -2,7 +2,7 @@
 
 ## Testing for blank
 
-A blank String is a String that is meets at least one of the following criteria:
+A string is blank if it is:
 
 * null
 * zero length
@@ -11,38 +11,55 @@ A blank String is a String that is meets at least one of the following criteria:
 ### isBlank
 
 ```dart
- String isBlank(String? string)
+ static bool isBlank(String? string)
 ```
 
-The isBlank returns true if ANY ONE of the above criteria holds true
+`isBlank` returns true for any of these cases.
 
 ```dart
-String.isBlank(null);
+Strings.isBlank(null);
 -> true
-String.isBlank('');
+Strings.isBlank('');
 -> true
-String.isBlank('\t\n\r ');
+Strings.isBlank('\t\n\r ');
 -> true
-String.isBlank('a');
+Strings.isBlank('a');
 -> false
 ```
 
 ### isNotBlank
 
 ```dart
- String isNotBlank(String? string)
+ static bool isNotBlank(String? string)
 ```
 
-The isNotBlank returns true only if ALL  of the above criteria are invalid
+`isNotBlank` returns true only when the string contains non-whitespace text.
 
 ```dart
-String.isNotBlank(null);
+Strings.isNotBlank(null);
 -> false
-String.isNotBlank('');
+Strings.isNotBlank('');
 -> false
-String.isNotBlank('\t\n\r ');
--> flase
-String.isNotBlank('a');
+Strings.isNotBlank('\t\n\r ');
+-> false
+Strings.isNotBlank('a');
 -> true
+```
+
+Both methods are also available on a non-null `String` as `.isBlank()` and `.isNotBlank()`.
+
+### orElseOnBlank
+
+```dart
+static String orElseOnBlank(String? string, String elseString)
+```
+
+Returns `elseString` if `string` is null, empty or contains only whitespace. Otherwise it returns the original string unchanged.
+
+```dart
+Strings.orElseOnBlank('  ', 'unknown');
+-> 'unknown'
+Strings.orElseOnBlank(' Alice ', 'unknown');
+-> ' Alice '
 ```
 
