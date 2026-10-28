@@ -12,6 +12,8 @@ The purpose of the Strings package is to provide:
 A core objective is to handle null input predictably. Some methods still throw for invalid indexes or missing delimiters; their pages describe those cases.
 
 ```dart
+import 'package:strings/strings.dart';
+
 // pass a short string and we can pad it (or not).
 Strings.right('one', 4, pad: Pad.left);
 // ' one'
@@ -23,9 +25,9 @@ Strings.right(null, 4, pad: Pad.left);
 
 ## Sponsored by OnePub <a href="#sponsored-by-onepub" id="sponsored-by-onepub"></a>
 
-Help support Strings by supporting [OnePub](https://onepub.dev/drive/b37ef958-bdc9-49bc-af7b-d31f1dd7c65d), the private Dart repository.
+Strings is sponsored by [OnePub](https://onepub.dev/), the private Dart repository service.
 
-OnePub allows you to privately share Dart packages across your Team and with your customers.
+OnePub lets you privately share Dart packages with your team and customers.
 
 Try it for free and publish your first private package in seconds.
 
@@ -34,13 +36,9 @@ Try it for free and publish your first private package in seconds.
 
 ## Namespace
 
-Strings takes a slightly non-conventional approach by defining all of the exposed methods as statics in the Strings class rather than defining them as global functions.
+The package groups nullable utility methods as statics on `Strings` rather than as global functions.
 
-We took this approach as it provides better support when using auto-completion in an IDE.
-
-Can't remember the name of a Strings function?
-
-Type `Strings.` and your IDE will show you the complete list of methods exposed by the Strings package.
+This makes them easy to find with IDE completion: type `Strings.` to see the available methods.
 
 Use `Strings.methodName(...)` for nullable values:
 
@@ -51,14 +49,12 @@ Strings.isBlank(null);                 // true
 
 ## Nullable strings
 
-Dart best practice encourages us to use String rather than String? but the reality is that at times we still need to handle nullable strings.
-
-The Strings package looks to make using String? types as easy as possible whilst reducing bugs and maintenance overheads.
+Most Dart strings are non-null, but some values have type `String?`. `Strings` methods let you work with those values directly.
 
 If you need to trim a `String?`, you can use the nullable wrapper:
 
 ```dart
-String? value;
+String? value = null;
 Strings.trim(value); // ''
 ```
 
@@ -108,12 +104,8 @@ Strings.isBlank(null);             // true
 
 ## Contributing
 
-We welcome contributions to the Strings package.
-
-The best way to get involved is to head over to the Strings github repository and fork the project.
-
-If you are looking to add a new method please conform to the current code layout.
+Contributions are welcome in the [Strings GitHub repository](https://github.com/onepub-dev/strings). Follow the existing code layout when adding a method.
 
 ### Unit Tests
 
-Before any new functions are added to the library they need reasonable set of unit tests.
+Include focused unit tests for each new function.

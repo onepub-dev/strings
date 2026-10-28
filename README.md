@@ -19,7 +19,7 @@ Use an extension method when you already have a non-null `String`:
 Use the corresponding `Strings` static method when the value may be null:
 
 ```dart
-String? value;
+String? value = null;
 Strings.toProperCase(value);             // ''
 Strings.right(value, 4, pad: Pad.left); // '    '
 Strings.isBlank(value);                 // true

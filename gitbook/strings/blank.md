@@ -2,7 +2,7 @@
 
 ## Testing for blank
 
-A blank String meets at least one of the following criteria:
+A string is blank if it is:
 
 * null
 * zero length
@@ -14,7 +14,7 @@ A blank String meets at least one of the following criteria:
  static bool isBlank(String? string)
 ```
 
-The isBlank returns true if ANY ONE of the above criteria holds true
+`isBlank` returns true for any of these cases.
 
 ```dart
 Strings.isBlank(null);
@@ -33,7 +33,7 @@ Strings.isBlank('a');
  static bool isNotBlank(String? string)
 ```
 
-The isNotBlank returns true only if ALL  of the above criteria are invalid
+`isNotBlank` returns true only when the string contains non-whitespace text.
 
 ```dart
 Strings.isNotBlank(null);

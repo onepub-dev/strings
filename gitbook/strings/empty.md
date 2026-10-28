@@ -2,7 +2,7 @@
 
 ## Testing for an Empty String
 
-An empty String meets at least one of the following criteria:
+`isEmpty` treats a string as empty when it is:
 
 * is null
 * is zero length
@@ -13,7 +13,7 @@ An empty String meets at least one of the following criteria:
  static bool isEmpty(String? string)
 ```
 
-The isEmpty returns true if ANY ONE of the above criteria holds true
+Whitespace alone does not make a string empty.
 
 ```dart
 Strings.isEmpty(null);

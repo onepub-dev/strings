@@ -6,7 +6,7 @@
  static bool isNumeric(String? string) 
 ```
 
-The 'isNumeric' method checks if 'string' is numeric by attempting to parse it as a double.
+`isNumeric` checks whether Dart can parse the string as a `double`.
 
 The exact strings `Infinity` and `NaN` are not treated as numbers.
 
@@ -17,11 +17,11 @@ Strings.isNumeric('1234');
 -> true
 ```
 
-If null is passed the 'string' is treated as an empty string and 'false' is returned.
+Null input returns false.
 
 #### extension
 
-The 'isNumeric' method is available as an extension to the String class
+`isNumeric` is also available as a `String` extension.
 
 ```dart
 'ABCD'.isNumeric();

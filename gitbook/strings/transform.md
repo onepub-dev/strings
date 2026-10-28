@@ -1,14 +1,12 @@
 # Transform
 
-## reverse&#x20;
+## reverse
 
 ```dart
 String reverse() 
 ```
 
-The 'reverse' methods reverse the order of characters in a string:
-
-It reverses grapheme clusters, keeping multi-code-point characters together. Null input returns `''`.
+`reverse` reverses visible characters (grapheme clusters), keeping multi-code-point characters together. Null input returns `''`.
 
 ```dart
 Strings.reverse('1234');
@@ -17,7 +15,7 @@ Strings.reverse('1234');
 
 #### extension
 
-The 'reverse' method is available as an extension to the String class.
+`reverse` is also available as a `String` extension.
 
 ```dart
 '1234'.reverse();
@@ -60,7 +58,7 @@ Strings.replaceLineEndings('one\r\ntwo\u2028three');
 static String toEscaped(String? string, {String Function(int charCode)? encode});
 ```
 
-The 'toEscaped' method escapes these characters with a leading backslash:
+`toEscaped` escapes these characters with a leading backslash:
 
 * tab
 * newline
@@ -75,7 +73,7 @@ Strings.toEscaped('a\nb');
 -> r'a\nb'
 ```
 
-If null is passed the 'string' is treated as an empty string and an empty string is returned.
+Null input returns `''`.
 
 The optional `encode` callback supplies an encoding for non-printable characters that do not have a dedicated short escape. By default these use `Strings.toUnicode`.
 
@@ -99,7 +97,7 @@ r'$abc'.toEscaped();
 static String toPrintable(String? string);
 ```
 
-The 'toPrintable' method escapes non-printable characters. Quotes and dollar signs remain unchanged.
+`toPrintable` escapes non-printable characters. Quotes and dollar signs remain unchanged.
 
 * tab
 * newline
@@ -110,7 +108,7 @@ Strings.toPrintable('a\nb');
 -> r'a\nb'
 ```
 
-If null is passed the 'string' is treated as an empty string and an empty string is returned.
+Null input returns `''`.
 
 #### extension
 
@@ -127,14 +125,14 @@ r'"$Hello"'.toPrintable();
 static String toUnicode(int? charCode) 
 ```
 
-The 'toUnicode' returns a unicode representation of the charCode.&#x20;
+`toUnicode` returns a `\u` escape for a Unicode code point, using at least four hexadecimal digits.
 
 ```dart
 Strings.toUnicode(50);
 -> r'\u0032'
 ```
 
-If null is passed an empty string is returned. Values outside the Unicode range throw `RangeError`.
+Null input returns `''`. Values outside the Unicode range throw `RangeError`.
 
 ## conjuctionJoin
 

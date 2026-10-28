@@ -2,7 +2,7 @@
 
 The Strings package provides nullable wrappers for many core `String` methods.
 
-Generally, the Safe methods convert a null String? to an empty String before passing the string to the wrapped String method.
+Most wrappers use `''` when their string input is null, then call the core Dart method.
 
 The wrappers do not remove every possible error. For example, invalid indexes still throw in `codeUnitAt` and `replaceRange`. The special null behaviors are noted below.
 
@@ -30,12 +30,12 @@ Strings.codeUnits(null)
 
 ## runes
 
-Refer to String.runes
+Returns Unicode code points, like `String.runes`.
 
 ```dart
-Strings.runes('abc')
--> list of runes
-Strings.runes(null)
+Strings.runes('abc').toList();
+-> [97, 98, 99]
+Strings.runes(null).toList();
 -> []
 ```
 
@@ -68,9 +68,9 @@ If both `string` and `other` are null then 0 is returned.
 
 If exactly one argument is null, the result is -1 or 1 according to `nullIsLessThan`.
 
-If nullIsLessThan is true than null is treated as less than all other strings.
+If `nullIsLessThan` is true, null sorts before non-null strings.
 
-If nullIsLessThan is false then null is treated as greater than all other strings.
+If `nullIsLessThan` is false, null sorts after non-null strings.
 
 ```dart
 Strings.compareTo(null, null);
@@ -83,6 +83,8 @@ Strings.compareTo(null, 'a');
 
 Refer to String.contains
 
+A null receiver is treated as `''`, so an empty pattern can still match it.
+
 ```dart
 Strings.contains('abc', 'ab')
 -> true
@@ -93,6 +95,8 @@ Strings.contains(null, 'ab')
 ## endsWith
 
 Refer to String.endsWith
+
+Returns false if either argument is null.
 
 ```dart
 Strings.endsWith('abc', 'bc')

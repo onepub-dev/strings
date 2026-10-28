@@ -2,7 +2,7 @@
 
 ## Processing parts of a String
 
-Strings allow you to work with parts of a String, splitting or joining a string.
+Use these methods to take, split, mask, count or join text.
 
 ### countMatches
 
@@ -82,22 +82,22 @@ These literal matching methods do not normalize Unicode. A partial surrogate pai
  static String abbreviate(String? string, int maxWidth, {int offset = 0})
 ```
 
-The abbreviate method truncates a string to 'maxWidth' characters and adds '...' to the end.
+`abbreviate` shortens a long string and adds `...` at the end.
 
 ```dart
 Strings.abbreviate('A long Sentence', 9);
 -> A long...
 ```
 
-The maxWidth argument sets the maxWidth of the resulting String, including the trailing ellipsis (...).
+`maxWidth` includes the three dots in the result.
 
 The public `offset` argument is currently ignored by both `Strings.abbreviate` and the `String` extension. Passing a non-zero offset does not change the result.
 
 Widths below four return the original string unchanged.
 
-If the 'string' is shorter than 'maxWidth' then the string is returned without change.
+If the string fits within `maxWidth`, it is returned unchanged.
 
-If you pass null then 'string' will be treated as a zero length string.
+Null input returns `''`.
 
 <pre class="language-dart"><code class="lang-dart"><strong>Strings.abbreviate(null, 9);
 </strong><strong>-> ''
@@ -119,11 +119,11 @@ static String hidePart(String? string,
       {int start = 0, int? end, String replaceWith = '*'})
 ```
 
-The 'hidePart' method replaces a section of the string with replacement character.
+`hidePart` replaces a section of the string with a chosen replacement.
 
-This can be used to hide a security token or a password contained within a string.
+For example, you can mask part of a token or password before displaying it.
 
-To hide a section of the string define a `start` position (defaults to 0) and an `end` position (defaults to the end of the string). The `start` position is inclusive and the `end` exclusive. Positions count grapheme clusters, which keeps multi-code-point characters together.
+Set `start` (included) and `end` (excluded) to choose the section. `start` defaults to 0, and `end` defaults to the end of the string. Positions count visible characters (grapheme clusters), so a multi-code-point emoji stays together.
 
 By default the replacement string is `*`, but you can modify it with `replaceWith`. This can be any string.
 
@@ -141,11 +141,11 @@ Strings.hidePart('my password', start: 3, replaceWith: '#');
       {String separator = '', bool excludeEmpty = false})
 ```
 
-The 'join' method concatenates a list of objects into a String by calling their 'toString' method, separating each item with the separator.
+`join` converts each item to text and combines them with `separator` between items.
 
-If the 'list' is null an empty String is returned;
+Null input returns `''`.
 
-If any member of the list is null then just the separator is output for that element.
+A null item contributes an empty string but still occupies a place in the list.
 
 ```dart
 Strings.join(['a', 'b', null, 'c'], separator: ',');
@@ -165,13 +165,13 @@ Strings.join(['a', '', null, 'b'], separator: ',', excludeEmpty: true);
   static String left(String? string, int length, {Pad pad = Pad.none})
 ```
 
-The left method returns the left 'n' characters from a string.
+`left` takes the first `length` UTF-16 code units of a string.
 
 <pre class="language-dart"><code class="lang-dart"><strong>Strings.left('one', 1);
 </strong><strong> -> 'o'
 </strong></code></pre>
 
-If the String is less than the 'length' passed then you can optionally pad the String to 'length' characters long.
+If the string is shorter than `length`, you can add spaces on either side.
 
 ```dart
 Strings.left('one', 4, pad: Pad.left);
@@ -180,14 +180,14 @@ Strings.left('one', 4, pad: Pad.right);
 -> 'one '
 ```
 
-By default, no padding will be applied (Pad.none).
+By default, `Pad.none` adds no spaces.
 
 ```dart
 Strings.left('one', 4);
 -> 'one'
 ```
 
-If you pass null then it will be treated as a zero length String.
+Null input is treated as `''`.
 
 ```dart
 Strings.left(null, 4, pad: Pad.left);
@@ -196,7 +196,7 @@ Strings.left(null, 4, pad: Pad.left);
 
 #### extension
 
-The 'left' method is available as an extension method on the String class.
+`left` is also available as a `String` extension.
 
 ```dart
 'hello world'.left(5);
@@ -209,13 +209,13 @@ The 'left' method is available as an extension method on the String class.
   static String right(String? string, int length, {Pad pad = Pad.none})
 ```
 
-The right method returns the right 'n' characters from a string.
+`right` takes the last `length` UTF-16 code units of a string.
 
 <pre class="language-dart"><code class="lang-dart"><strong>Strings.right('one', 1);
 </strong><strong> -> 'e'
 </strong></code></pre>
 
-If the String is less than the 'length' passed then you can optionally pad the String to 'length' characters long.
+If the string is shorter than `length`, you can add spaces on either side.
 
 ```dart
 Strings.right('one', 4, pad: Pad.left);
@@ -224,14 +224,14 @@ Strings.right('one', 4, pad: Pad.right);
 -> 'one '
 ```
 
-By default, no padding will be applied (Pad.none).
+By default, `Pad.none` adds no spaces.
 
 ```dart
 Strings.right('one', 4);
 -> 'one'
 ```
 
-If you pass null then it will be treated as a zero length String.
+Null input is treated as `''`.
 
 ```dart
 Strings.right(null, 4, pad: Pad.left);
@@ -240,7 +240,7 @@ Strings.right(null, 4, pad: Pad.left);
 
 #### extension
 
-The 'right' method is available as an extension method on the String class.
+`right` is also available as a `String` extension.
 
 ```dart
 'hello world'.right(5);

@@ -1,6 +1,6 @@
 # Style
 
-The group of style related methods allows you to 'style' a string and test the style of a string.
+These methods check or change letter case and test whitespace.
 
 ## isLowerCase
 
@@ -8,7 +8,7 @@ The group of style related methods allows you to 'style' a string and test the s
  static bool isLowerCase(String? string) 
 ```
 
-The 'isLowerCase' method returns true if the 'string' contains no upper case characters. All other characters, digits etc are allowed.
+`isLowerCase` returns true when the string has no uppercase letters. Digits, spaces and punctuation are allowed.
 
 ```dart
 Strings.isLowerCase('abc 1234');
@@ -17,13 +17,11 @@ Strings.isLowerCase('abC 1234');
 -> false
 ```
 
-If null is passed the 'string' is treated as an empty string and 'true' is returned.
-
-An empty string also returns `true`.
+Null and empty strings return true.
 
 #### extension
 
-The 'isLowerCase' method is available as an extension to the String class
+`isLowerCase` is also available as a `String` extension.
 
 ```dart
 'ABCD'.isLowerCase();
@@ -81,7 +79,7 @@ Strings.isWhitespaceRune(0x00A0);
  static bool isUpperCase(String? string) 
 ```
 
-The 'isUpperCase' method returns true if the 'string' contains no lower case characters. All other characters, digits etc are allowed.
+`isUpperCase` returns true when the string has no lowercase letters. Digits, spaces and punctuation are allowed.
 
 ```dart
 Strings.isUpperCase('ABC 1234');
@@ -94,7 +92,7 @@ If null or an empty string is passed, `true` is returned.
 
 #### extension
 
-The 'isUpperCase' method is available as an extension on the String class.
+`isUpperCase` is also available as a `String` extension.
 
 ```dart
 'abcd'.isUpperCase();
@@ -107,7 +105,7 @@ The 'isUpperCase' method is available as an extension on the String class.
  static bool startsWithLowerCase(String? string) 
 ```
 
-The 'startsWithLowerCase' method returns true if the 'string' starts with an lower case character.
+`startsWithLowerCase` returns true when the first character is lowercase.
 
 ```dart
 Strings.startsWithLowerCase('abc 1234');
@@ -116,7 +114,7 @@ Strings.startsWithLowerCase('Abc 1234');
 -> false
 ```
 
-If null is passed the 'string' is treated as an empty string and 'false' is returned.
+Null or empty input returns false.
 
 #### extension
 
@@ -133,7 +131,7 @@ The method 'startsWithLowerCase' is available as an extension on the String clas
  static bool startsWithUpperCase(String? string) 
 ```
 
-The 'startsWithUpperCase' method returns true if the 'string' starts with an upper case character.
+`startsWithUpperCase` returns true when the first character is uppercase.
 
 ```dart
 Strings.startsWithUpperCase('ABC 1234');
@@ -142,7 +140,7 @@ Strings.startsWithUpperCase('abc 1234');
 -> false
 ```
 
-If null is passed the 'string' is treated as an empty string and 'false' is returned.
+Null or empty input returns false.
 
 #### extension
 
@@ -159,7 +157,7 @@ The method 'startsWithUpperCase' is available as an extension method on the Stri
  static String toCamelCase(String? string, {bool lower = false});
 ```
 
-The 'toCamelCase' method converts the `string` to camel case.&#x20;
+`toCamelCase` converts underscore-separated words to camel case.
 
 ```dart
 Strings.toCamelCase('abc_one');
@@ -173,11 +171,11 @@ Strings.toCamelCase('abc_one', lower: true);
 -> 'abcOne'
 ```
 
-If null is passed the 'string' is treated as an empty string and an empty string is returned.
+Null input returns `''`.
 
 #### extension
 
-The 'toCamelCase' method is available as an extension on the String class.
+`toCamelCase` is also available as a `String` extension.
 
 ```dart
 'abc_one'.toCamelCase();
@@ -190,14 +188,14 @@ The 'toCamelCase' method is available as an extension on the String class.
 static String toCapitalised(String? string);
 ```
 
-The 'toCapitalised' capitalises the first character of the 'string'.
+`toCapitalised` uppercases the first character and leaves the rest unchanged.
 
 ```dart
 Strings.toCapitalised('abc one');
 -> 'Abc one'
 ```
 
-If null is passed the 'string' is treated as an empty string and an empty string is returned.
+Null input returns `''`.
 
 #### extension
 
@@ -214,14 +212,14 @@ The `toCapitalised` method is available as an extension on the String class.
  static String toLowerCase(String? string);
 ```
 
-The 'toLowerCase' method converts the `string` all lower case.
+`toLowerCase` returns the string in lowercase.
 
 ```dart
 Strings.toLowerCase('Abc One');
 -> 'abc one'
 ```
 
-If null is passed the 'string' is treated as an empty string and an empty string is returned.
+Null input returns `''`.
 
 ## toProperCase
 
@@ -229,14 +227,14 @@ If null is passed the 'string' is treated as an empty string and an empty string
  static String toProperCase(String? string);
 ```
 
-The 'toProperCase' method converts the `string` to proper case where in the first letter of each word is capitalised.
+`toProperCase` lowercases each space-separated word, then uppercases its first letter. Repeated spaces are collapsed.
 
 ```dart
 Strings.toProperCase('abc one');
 -> 'Abc One'
 ```
 
-If null is passed the 'string' is treated as an empty string and an empty string is returned.
+Null input returns `''`.
 
 The method is also available as a `String` extension: `'hello world'.toProperCase()` returns `'Hello World'`.
 
@@ -246,7 +244,7 @@ The method is also available as a `String` extension: `'hello world'.toProperCas
  static String toSnakeCase(String? string);
 ```
 
-The 'toSnakeCase' method lowercases the string and inserts an underscore before uppercase letters following word characters. It preserves spaces; it does not turn spaces into underscores.
+`toSnakeCase` lowercases the text and adds an underscore before uppercase letters that follow word characters. Spaces stay as spaces.
 
 ```dart
 Strings.toSnakeCase('abc one');
@@ -255,11 +253,11 @@ Strings.toSnakeCase('AbcOne');
 -> 'abc_one'
 ```
 
-If null is passed the 'string' is treated as an empty string and an empty string is returned.
+Null input returns `''`.
 
 #### extension
 
-The 'toSnakeCase' method is available as an extension method on the String class.
+`toSnakeCase` is also available as a `String` extension.
 
 ```dart
 'AbcDef'.toSnakeCase();
