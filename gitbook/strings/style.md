@@ -221,6 +221,23 @@ Strings.toLowerCase('Abc One');
 
 Null input returns `''`.
 
+`String` already has its own `.toLowerCase()` method. The nullable `Strings` wrapper is also listed under [Safe](safe.md#tolowercase).
+
+## toUpperCase
+
+```dart
+static String toUpperCase(String? string)
+```
+
+`toUpperCase` returns the string in uppercase. Null input returns `''`.
+
+```dart
+Strings.toUpperCase('Abc One');
+-> 'ABC ONE'
+```
+
+`String` already has its own `.toUpperCase()` method. The nullable `Strings` wrapper is also listed under [Safe](safe.md#touppercase).
+
 ## toProperCase
 
 ```dart
