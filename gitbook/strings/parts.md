@@ -4,6 +4,8 @@
 
 Use these methods to take, split, mask, count or join text.
 
+The search-based methods below use case-sensitive, literal UTF-16 matching without Unicode normalization. A partial surrogate pair or grapheme can match or split part of a character, as with Dart's native string search methods.
+
 ### countMatches
 
 ```dart
@@ -21,60 +23,98 @@ Strings.countMatches(null, 'a');
 -> 0
 ```
 
-### substringAfter, substringAfterLast and substringBeforeLast
+### substringAfter
 
 ```dart
 static String substringAfter(String? string, String? separator)
-static String substringAfterLast(String? string, String? separator)
-static String substringBeforeLast(String? string, String? separator)
 ```
 
-These methods search for a case-sensitive literal separator. `substringAfter` uses the first match; the other two use the last. Null input is treated as `''`. A null, empty or missing separator returns `''` for the two `After` methods and the original input for `substringBeforeLast`.
+Returns text after the first separator. Null input is `''`; a null, empty or missing separator returns `''`. Also available as a `String` extension.
 
 ```dart
 Strings.substringAfter('a=b=c', '=');
 -> 'b=c'
+```
+
+### substringAfterLast
+
+```dart
+static String substringAfterLast(String? string, String? separator)
+```
+
+Returns text after the last separator. Null input is `''`; a null, empty or missing separator returns `''`. Also available as a `String` extension.
+
+```dart
 'a=b=c'.substringAfterLast('=');
 -> 'c'
+```
+
+### substringBeforeLast
+
+```dart
+static String substringBeforeLast(String? string, String? separator)
+```
+
+Returns text before the last separator. Null input is `''`; a null, empty or missing separator returns the original input. Also available as a `String` extension.
+
+```dart
 'a=b=c'.substringBeforeLast('=');
 -> 'a=b'
 ```
 
-All three are available as `String` extensions.
-
-### removePrefix and removeSuffix
+### removePrefix
 
 ```dart
 static String removePrefix(String? string, String? prefix)
-static String removeSuffix(String? string, String? suffix)
 ```
 
-Remove one matching literal affix. Null input becomes `''`. A null, empty or unmatched affix leaves the input unchanged. Both methods are also `String` extensions.
+Removes one matching prefix. Null input becomes `''`; a null, empty or unmatched prefix leaves the input unchanged. Also available as a `String` extension.
 
 ```dart
 Strings.removePrefix('pre-prefix', 'pre-');
 -> 'prefix'
+```
+
+### removeSuffix
+
+```dart
+static String removeSuffix(String? string, String? suffix)
+```
+
+Removes one matching suffix. Null input becomes `''`; a null, empty or unmatched suffix leaves the input unchanged. Also available as a `String` extension.
+
+```dart
 'report.txt'.removeSuffix('.txt');
 -> 'report'
 ```
 
-### partition and lastPartition
+### partition
 
 ```dart
 static List<String> partition(String? string, String? separator)
-static List<String> lastPartition(String? string, String? separator)
 ```
 
-Split at the first or last case-sensitive literal separator, retaining it as the middle of three strings. Null input is `''`. For a null, empty or absent separator, `partition` returns `[text, '', '']` and `lastPartition` returns `['', '', text]`. Joining the three strings always reconstructs the input. Both methods are also `String` extensions.
+Splits at the first separator, returning the text before it, the separator, and the text after it. Null input is `''`. A null, empty or absent separator returns `[text, '', '']`. Also available as a `String` extension.
 
 ```dart
 Strings.partition('key=value=rest', '=');
 -> ['key', '=', 'value=rest']
+```
+
+### lastPartition
+
+```dart
+static List<String> lastPartition(String? string, String? separator)
+```
+
+Splits at the last separator into the same three parts. Null input is `''`. A null, empty or absent separator returns `['', '', text]`. Also available as a `String` extension.
+
+```dart
 'archive.tar.gz'.lastPartition('.');
 -> ['archive.tar', '.', 'gz']
 ```
 
-These literal matching methods do not normalize Unicode. A partial surrogate pair or grapheme supplied as a search value can match or split part of a character, as with Dart's native string search methods.
+Joining the three strings returned by either partition method always reconstructs the input.
 
 ### abbreviate
 
@@ -112,7 +152,7 @@ The `abbreviate` method is available as an extension method on the String class.
 -> 'ab...'
 ```
 
-## hidePart
+### hidePart
 
 ```dart
 static String hidePart(String? string,
@@ -134,7 +174,7 @@ Strings.hidePart('my password', start: 3, replaceWith: '#');
 
 `hidePart` is a `Strings` static method; there is no `String` extension for it.
 
-## join
+### join
 
 ```dart
   static String join(List<Object?>? list,
@@ -162,16 +202,16 @@ Strings.join(['a', '', null, 'b'], separator: ',', excludeEmpty: true);
 ### left
 
 ```dart
-  static String left(String? string, int length, {Pad pad = Pad.none})
+  static String left(String? string, int take, {Pad pad = Pad.none})
 ```
 
-`left` takes the first `length` UTF-16 code units of a string.
+`left` takes the first `take` UTF-16 code units of a string.
 
 <pre class="language-dart"><code class="lang-dart"><strong>Strings.left('one', 1);
 </strong><strong> -> 'o'
 </strong></code></pre>
 
-If the string is shorter than `length`, you can add spaces on either side.
+If the string is shorter than `take`, you can add spaces on either side.
 
 ```dart
 Strings.left('one', 4, pad: Pad.left);
@@ -206,16 +246,16 @@ Strings.left(null, 4, pad: Pad.left);
 ### right
 
 ```dart
-  static String right(String? string, int length, {Pad pad = Pad.none})
+  static String right(String? string, int take, {Pad pad = Pad.none})
 ```
 
-`right` takes the last `length` UTF-16 code units of a string.
+`right` takes the last `take` UTF-16 code units of a string.
 
 <pre class="language-dart"><code class="lang-dart"><strong>Strings.right('one', 1);
 </strong><strong> -> 'e'
 </strong></code></pre>
 
-If the string is shorter than `length`, you can add spaces on either side.
+If the string is shorter than `take`, you can add spaces on either side.
 
 ```dart
 Strings.right('one', 4, pad: Pad.left);
@@ -247,7 +287,9 @@ Strings.right(null, 4, pad: Pad.left);
 -> world
 ```
 
-`Pad` is an exported enum with values `left`, `right` and `none`. The `left` and `right` methods count UTF-16 code units, like Dart's `String.substring`.
+### Pad
+
+`Pad` is an exported enum with values `left`, `right` and `none`. It controls where `left` and `right` add spaces when the input is shorter than the requested length. Those methods count UTF-16 code units, like Dart's `String.substring`.
 
 ### within
 

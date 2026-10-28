@@ -102,6 +102,48 @@ Strings.right(null, 4, pad: Pad.left); // '    '
 Strings.isBlank(null);             // true
 ```
 
+### Available extensions
+
+`StringEx` adds these methods to non-null strings. Each has a corresponding `Strings` static method that accepts a nullable receiver.
+
+* **Blank and type checks:** `isBlank`, `isNotBlank`, `isLowerCase`, `isUpperCase`, `isNumeric`, `isAscii`, `startsWithLowerCase`, `startsWithUpperCase`, `equalsIgnoreCase`.
+* **Parts:** `abbreviate`, `countMatches`, `left`, `right`, `removePrefix`, `removeSuffix`, `partition`, `lastPartition`, `substringAfter`, `substringAfterLast`, `substringBeforeLast`.
+* **Style and transform:** `toCamelCase`, `toCapitalised`, `toProperCase`, `toSnakeCase`, `reverse`, `normalizeSpace`, `replaceLineEndings`, `toEscaped`, `toPrintable`.
+
+## Complete method index
+
+These are the public static methods on `Strings`. Follow each group link for signatures, examples and edge cases. `Pad.left`, `Pad.right` and `Pad.none` are described under [Pad](parts.md#pad).
+
+### [Blank](blank.md)
+
+`isBlank`, `isNotBlank`, `orElseOnBlank`.
+
+### [Empty](empty.md)
+
+`isEmpty`, `isNotEmpty`, `orElse`, `orElseCall`, `toEmpty`.
+
+### [Parts](parts.md)
+
+`abbreviate`, `countMatches`, `hidePart`, `join`, `lastPartition`, `left`, `partition`, `removePrefix`, `removeSuffix`, `right`, `substringAfter`, `substringAfterLast`, `substringBeforeLast`, `upTo`, `within`.
+
+### [Safe](safe.md)
+
+`allMatches`, `codeUnitAt`, `codeUnits`, `compareTo`, `contains`, `endsWith`, `indexOf`, `lastIndexOf`, `length`, `matchAsPrefix`, `padLeft`, `padRight`, `replaceAll`, `replaceAllMapped`, `replaceFirst`, `replaceFirstMapped`, `replaceRange`, `runes`, `split`, `splitMapJoin`, `startsWith`, `substring`, `toLowerCase`, `toUpperCase`, `trim`, `trimLeft`, `trimRight`.
+
+### [Style](style.md)
+
+`isLowerCase`, `isPrintable`, `isUpperCase`, `isWhitespace`, `isWhitespaceRune`, `startsWithLowerCase`, `startsWithUpperCase`, `toCamelCase`, `toCapitalised`, `toLowerCase`, `toProperCase`, `toSnakeCase`, `toUpperCase`.
+
+### [Transform](transform.md)
+
+`conjuctionJoin`, `normalizeSpace`, `replaceLineEndings`, `reverse`, `toEscaped`, `toPrintable`, `toUnicode`.
+
+### [Type](type.md)
+
+`equals`, `equalsIgnoreCase`, `isAscii`, `isDigits`, `isNumeric`.
+
+`toLowerCase` and `toUpperCase` appear under both [Safe](safe.md) and [Style](style.md), because they are nullable wrappers for core `String` methods and common case conversions.
+
 ## Contributing
 
 Contributions are welcome in the [Strings GitHub repository](https://github.com/onepub-dev/strings). Follow the existing code layout when adding a method.
