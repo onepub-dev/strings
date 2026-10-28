@@ -1,118 +1,78 @@
-The Strings package is an evolution of the work originally produced by Andrew Mezoni.
+# Strings
 
-The purpose of the Strings package is to provide:
- * a collection of useful String functions to complement the core String class.
- * where viable, directly extend the String class with methods such as String.right, String.left...
- * provide a safer environment when working with nullable Strings (String?)
- * wrappers for each of the core String methods which are safe to use with a nullable String?.
-
-A core objective of the Strings package is to never 'throw' or return an error but to make a best effort to process the passed data.
+Strings is a collection of Dart string utilities. It adds methods to non-null `String` values and provides static methods on `Strings` for values that may be null. The package builds on work originally produced by Andrew Mezoni.
 
 ```dart
-// passing null works too.
-Strings.right(null, 4, pad: Pad.left);
- -> '    '
-
-// pass a short string and we can pad it (or not).
-Strings.right('one', 4, pad: Pad.left);
- -> ' one'
-
+import 'package:strings/strings.dart';
 ```
 
-The Strings package also includes a number of methods exposed as extensions to the
-core Dart String class:
-```dart
-'a normal string'.right(4);
--> 'a no'
-```
+## Two ways to call a method
 
-# Literal boundaries
-
-Remove a single literal prefix or suffix, or split once while keeping the
-separator and both sides:
+Use an extension method when you already have a non-null `String`:
 
 ```dart
-Strings.removePrefix('Bearer token', 'Bearer '); // 'token'
-'report.txt'.removeSuffix('.txt'); // 'report'
-Strings.partition('key=value=rest', '='); // ['key', '=', 'value=rest']
-'archive.tar.gz'.lastPartition('.'); // ['archive.tar', '.', 'gz']
-Strings.removePrefix(null, 'prefix'); // ''
+'hello world'.toProperCase(); // 'Hello World'
+'report.txt'.right(3);        // 'txt'
+'dart_vm'.toCamelCase();       // 'DartVm'
 ```
 
-All four methods are available as nullable `Strings` static methods and as
-`StringEx` extensions on `String`. Null input is treated as `''`. A null, empty
-or unmatched affix leaves the input unchanged. A null, empty or unmatched
-separator produces `[text, '', '']` for `partition` and `['', '', text]` for
-`lastPartition`. Partition results always contain three strings; joining them
-reconstructs the input.
-
-Matching is literal, case-sensitive UTF-16 matching, with no regular expressions
-or Unicode normalization. Complete emoji and combining sequences work as
-delimiters. Supplying only part of a surrogate pair or grapheme can split that
-character, just as with Dart's native string search and substring methods.
-
-These methods draw on Python's literal affix removal and partition operations.
-Unlike Python, empty separators are handled without throwing.
-
-# Counting, extraction and whitespace
+Use the corresponding `Strings` static method when the value may be null:
 
 ```dart
-Strings.countMatches('aaaaa', 'aa'); // 2 (non-overlapping)
-'key=value=rest'.substringAfter('='); // 'value=rest'
-'archive.tar.gz'.substringAfterLast('.'); // 'gz'
-'archive.tar.gz'.substringBeforeLast('.'); // 'archive.tar'
-Strings.normalizeSpace('  hello\t world  '); // 'hello world'
-'one\r\ntwo\u2028three'.replaceLineEndings(); // 'one\ntwo\nthree'
-'one\ntwo'.replaceLineEndings(replacement: ' | '); // 'one | two'
+String? value;
+Strings.toProperCase(value);             // ''
+Strings.right(value, 4, pad: Pad.left); // '    '
+Strings.isBlank(value);                 // true
 ```
 
-All six methods have nullable `Strings` statics and `StringEx` extensions on
-`String`. Null input is treated as `''`. Search and extraction use literal,
-case-sensitive UTF-16 matching without normalization, as described above.
+Methods such as `Strings.trim` also wrap core `String` methods for nullable input. `String` already has its own non-null `trim` method:
 
-| Method | Null, empty or missing search/separator |
-| --- | --- |
-| `countMatches` | `0` |
-| `substringAfter` | `''` |
-| `substringAfterLast` | `''` |
-| `substringBeforeLast` | Original input (or `''` for null) |
+```dart
+Strings.trim(value); // ''
+'  Dart  '.trim();    // 'Dart'
+```
 
-`normalizeSpace` removes leading/trailing whitespace and collapses internal
-runs to one ASCII space. It uses the existing `Strings.isWhitespaceRune` set,
-including non-breaking spaces, U+180E and U+FEFF (BOM). Other text is preserved.
+## Common tasks
 
-`replaceLineEndings` recognizes CRLF as one ending, plus CR, LF, NEL (U+0085),
-form feed (U+000C), line separator (U+2028) and paragraph separator (U+2029).
-Vertical tab is unchanged. Its default replacement is LF on every platform;
-null or empty replacement removes endings. Replacement text is literal and
-is not processed again. Other code units are preserved exactly.
+### Check and default a value
 
-The counting and extraction helpers draw on Apache Commons Lang, with empty
-separators treated consistently as absent. The newline set follows .NET's
-`ReplaceLineEndings`, using deterministic LF rather than a platform default.
+`isEmpty` checks for null or zero length. `isBlank` also considers whitespace-only strings blank. Use `orElseOnBlank` when a display value needs a fallback.
 
-# See the full list
-The Strings package incudes over 50 functions.
+```dart
+Strings.isEmpty(' ');                    // false
+Strings.isBlank(' ');                    // true
+'  '.isBlank();                          // true
+Strings.orElseOnBlank('  ', 'Guest');    // 'Guest'
+Strings.orElse(null, 'Guest');          // 'Guest'
+```
 
-You can see the full list including examples at:
+### Take, pad, or join text
 
-[strings.onepub.dev](https://strings.onepub.dev)
+`left` and `right` take characters from either end. `Pad` controls whether a short result is padded with spaces. `join` accepts nullable lists and elements.
 
-# Contributing:
-The strings package is hosted on github at:
-[github.com/onepub-dev/strings](https://github.com/onepub-dev/strings)
+```dart
+'abcdef'.left(3);                              // 'abc'
+Strings.right('one', 4, pad: Pad.left);       // ' one'
+Strings.join(['red', 'green'], separator: ', '); // 'red, green'
+```
 
-Contributions are welcomed.
+### Change case and formatting
 
-# Sponser
-The strings package is sponsored by OnePub - the private Dart repository SaaS.
+```dart
+'hello world'.toProperCase();              // 'Hello World'
+Strings.toSnakeCase('camelCase');          // 'camel_case'
+'dart_vm'.toCamelCase(lower: true);        // 'dartVm'
+'hello'.reverse();                         // 'olleh'
+```
 
-[onepub.dev](https://onepub.dev)
+The same import exposes other helpers for literal boundaries, counting, whitespace normalization, line endings, and nullable wrappers for core `String` methods. The [Strings manual](https://strings.onepub.dev/) groups them by task and gives their null and edge-case behavior. Some operations can throw for invalid indexes or missing delimiters; consult the relevant method page.
 
-<img alt="OnePub Logo" src="https://raw.githubusercontent.com/onepub-dev/strings/main/images/onepub-logo.svg" style="width:200px"></img>
+## Contributing
 
+The package is hosted at [github.com/onepub-dev/strings](https://github.com/onepub-dev/strings). Contributions are welcome.
 
+## Sponsored by OnePub
 
+Strings is sponsored by [OnePub](https://onepub.dev/), the private Dart repository service.
 
-
-
+<img alt="OnePub logo" src="https://raw.githubusercontent.com/onepub-dev/strings/main/images/onepub-logo.svg" width="200">

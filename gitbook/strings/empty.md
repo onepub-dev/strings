@@ -2,7 +2,7 @@
 
 ## Testing for an Empty String
 
-An Empty String is a String that is meats at least ONE of the following criteria
+An empty String meets at least one of the following criteria:
 
 * is null
 * is zero length
@@ -10,38 +10,81 @@ An Empty String is a String that is meats at least ONE of the following criteria
 ### isEmpty
 
 ```dart
- String isEmpty(String? string)
+ static bool isEmpty(String? string)
 ```
 
 The isEmpty returns true if ANY ONE of the above criteria holds true
 
 ```dart
-String.isEmpty(null);
+Strings.isEmpty(null);
 -> true
-String.isEmpty('');
+Strings.isEmpty('');
 -> true
-String.isEmpty('\t\n\r ');
+Strings.isEmpty('\t\n\r ');
 -> false
-String.isEmpty('a');
+Strings.isEmpty('a');
 -> false
 ```
 
 ### isNotEmpty
 
 ```dart
- String isNotEmpty(String? string)
+ static bool isNotEmpty(String? string)
 ```
 
-The isNotBlank returns true only if ALL  of the above criteria are invalid
+The isNotEmpty method returns true only if the string is non-null and has non-zero length.
 
 ```dart
-String.isNotEmpty(null);
+Strings.isNotEmpty(null);
 -> false
-String.isNotEmpty('');
+Strings.isNotEmpty('');
 -> false
-String.isNotEmpty('\t\n\r ');
+Strings.isNotEmpty('\t\n\r ');
 -> true
-String.isNotEmpty('a');
+Strings.isNotEmpty('a');
 -> true
 
+```
+
+### toEmpty
+
+```dart
+static String toEmpty(String? string)
+```
+
+Converts null to `''` and returns a non-null string unchanged.
+
+```dart
+Strings.toEmpty(null);
+-> ''
+Strings.toEmpty('abc');
+-> 'abc'
+```
+
+### orElse
+
+```dart
+static String orElse(String? string, String elsestring)
+```
+
+Returns `elsestring` only when `string` is null. An empty string is returned unchanged.
+
+```dart
+Strings.orElse(null, 'fallback');
+-> 'fallback'
+Strings.orElse('', 'fallback');
+-> ''
+```
+
+### orElseCall
+
+```dart
+static String orElseCall(String? string, String Function() elsestring)
+```
+
+Calls `elsestring` only when `string` is null, and returns its result. For a non-null string, the callback is not called.
+
+```dart
+Strings.orElseCall(null, () => 'fallback');
+-> 'fallback'
 ```

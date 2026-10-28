@@ -1,10 +1,10 @@
 # Safe
 
-The Strings package provides null safe wrappers for each of the String methods.
+The Strings package provides nullable wrappers for many core `String` methods.
 
 Generally, the Safe methods convert a null String? to an empty String before passing the string to the wrapped String method.
 
-In some cases we do additional processing to avoid RangeExceptions and other problems caused by an empty String. These exceptions are noted below.
+The wrappers do not remove every possible error. For example, invalid indexes still throw in `codeUnitAt` and `replaceRange`. The special null behaviors are noted below.
 
 ## length
 
@@ -23,7 +23,7 @@ Refer to String.codeUnits
 
 ```dart
 Strings.codeUnits('abc')
--> [0xxx, 0xyy, 0xzz]
+-> [97, 98, 99]
 Strings.codeUnits(null)
 -> []
 ```
@@ -39,6 +39,22 @@ Strings.runes(null)
 -> []
 ```
 
+## allMatches
+
+```dart
+static Iterable<Match> allMatches(String? pattern, String string, [int start = 0])
+```
+
+Calls `allMatches` on `pattern ?? ''`. The searched `string` is non-null. A null pattern is an empty pattern, which can match at empty positions.
+
+## codeUnitAt
+
+```dart
+static int codeUnitAt(String? string, int index)
+```
+
+Reads one UTF-16 code unit. Invalid indexes, including any index on a null input, throw `RangeError`.
+
 ## compareTo
 
 ```dart
@@ -46,15 +62,22 @@ Strings.runes(null)
       {bool nullIsLessThan = true})
 ```
 
-The compareTo method returns two Strings returning 1, 0 or -1.
+The compareTo method compares two nullable strings. For two non-null values, it returns Dart's `String.compareTo` result: negative, zero or positive according to sort order.
 
-If both `string` and `other` are null then -1 is returned.
+If both `string` and `other` are null then 0 is returned.
 
-If one of `string` and `other` are null then -1 or \` is returned based on 'nullIsLessThan'.
+If exactly one argument is null, the result is -1 or 1 according to `nullIsLessThan`.
 
 If nullIsLessThan is true than null is treated as less than all other strings.
 
 If nullIsLessThan is false then null is treated as greater than all other strings.
+
+```dart
+Strings.compareTo(null, null);
+-> 0
+Strings.compareTo(null, 'a');
+-> -1
+```
 
 ## contains
 
@@ -83,9 +106,9 @@ Strings.endsWith(null, 'ab')
 Refer to String.indexOf
 
 ```dart
-Strings.indexOf('abcdef', 'abc);
--> 3
-Strings.indexOf(null, 'abc);
+Strings.indexOf('abcdef', 'abc');
+-> 0
+Strings.indexOf(null, 'abc');
 -> -1
 ```
 
@@ -94,18 +117,20 @@ Strings.indexOf(null, 'abc);
 Refer to String.lastIndexOf
 
 ```dart
-Strings.lastIndexOf('abcdefabc', 'abc); 
+Strings.lastIndexOf('abcdefabc', 'abc');
 -> 6 
-Strings.lastIndexOf(null, 'abc); 
+Strings.lastIndexOf(null, 'abc');
 -> -1
 ```
 
 ## matchAsPrefix
 
 ```dart
-Strings.matchAsPrefix(null, 'abc')
--> null
+Strings.matchAsPrefix('ab', 'abc')?.group(0);
+-> 'ab'
 ```
+
+`matchAsPrefix` takes a nullable pattern and a non-null string. A null pattern is treated as an empty pattern and can produce a zero-length match.
 
 ## padLeft
 
@@ -145,9 +170,9 @@ Strings.replaceAll(null, 'ab', 'A');
 Refer to String.replaceAllMapped
 
 ```dart
-Strings.replaceAllMapped('abc', 'a', (match) -> 'b');
+Strings.replaceAllMapped('abc', 'a', (match) => 'b');
 -> 'bbc';
-Strings.replaceAllMapped(null, 'a', (match) -> 'b');
+Strings.replaceAllMapped(null, 'a', (match) => 'b');
 -> ''
 ```
 
@@ -156,9 +181,9 @@ Strings.replaceAllMapped(null, 'a', (match) -> 'b');
 Refer to String.replaceFirst
 
 ```dart
-Strings.replaceFirst('abcabc', 'abc', 'def);
+Strings.replaceFirst('abcabc', 'abc', 'def');
 -> 'defabc'
-Strings.replaceFirst(null, 'abc', 'def);
+Strings.replaceFirst(null, 'abc', 'def');
 -> ''
 ```
 
@@ -167,9 +192,9 @@ Strings.replaceFirst(null, 'abc', 'def);
 Refer to String.replaceFirstMapped
 
 ```dart
-Strings.replaceFirstMapped('abcabc', 'a', (match) -> 'b');
+Strings.replaceFirstMapped('abcabc', 'a', (match) => 'b');
 -> 'bbcabc';
-Strings.replaceFirstMapped(null, 'a', (match) -> 'b');
+Strings.replaceFirstMapped(null, 'a', (match) => 'b');
 -> ''
 ```
 
@@ -180,9 +205,9 @@ Refer to String.replaceRange
 ```dart
 Strings.replaceRange('abcdef', 3, 6, 'abc');
 -> 'abcabc'
-Strings.replaceRange(null, 3, 6, 'abc');
--> ''
 ```
+
+`replaceRange` uses `''` for null input but still throws `RangeError` when the requested range is outside that empty string.
 
 ## split
 
@@ -192,7 +217,7 @@ Refer to String.split
 Strings.split('a,b,c,d', ',');
 -> ['a', 'b', 'c', 'd'];
 Strings.split(null, ',');
--> [];
+-> [''];
 ```
 
 ## splitMapJoin
@@ -204,11 +229,9 @@ Strings.splitMapJoin('Eats sleeps leaves', RegExp(r'sleeps'),
      onMatch: (m) => '${m[0]}',
     onNonMatch: (n) => '*');
  -> '*sleeps*'
- Strings.splitMapJoin(null, RegExp(r'sleeps'),
-     onMatch: (m) => '${m[0]}',
-    onNonMatch: (n) => '*');
--> ''
 ```
+
+For null input, `splitMapJoin` processes `''` with the supplied pattern and callbacks; a callback can therefore produce a non-empty result.
 
 ## startsWith
 
@@ -233,8 +256,10 @@ Instead of replacing it with an empty string we return a string containing space
 Strings.substring('abcdef', 0, 3);
 -> 'abc'
 Strings.substring(null, 0, 3);
-'   '
+-> '   '
 ```
+
+Invalid indexes on a non-null input still throw `RangeError`.
 
 ## toLowerCase
 

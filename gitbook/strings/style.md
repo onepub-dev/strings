@@ -19,6 +19,8 @@ Strings.isLowerCase('abC 1234');
 
 If null is passed the 'string' is treated as an empty string and 'true' is returned.
 
+An empty string also returns `true`.
+
 #### extension
 
 The 'isLowerCase' method is available as an extension to the String class
@@ -34,13 +36,43 @@ The 'isLowerCase' method is available as an extension to the String class
 static bool isPrintable(int? character) 
 ```
 
-The isPrintable method returns true of 'character' is a printable character.
+The `isPrintable` method takes a Unicode code point and returns whether its Unicode category is printable.
 
-Whitespace characters are considered as non-printable.
+Null and control characters are not printable. Ordinary spaces are printable under this category check.
 
 ```dart
-Strings.isPrintable('\n');
+Strings.isPrintable(0x0A); // newline
 -> false
+Strings.isPrintable(' '.runes.first);
+-> true
+```
+
+## isWhitespace
+
+```dart
+static bool isWhitespace(String string)
+```
+
+Returns `true` when every rune is in the package's whitespace set. The input must be non-null; an empty string returns `true`.
+
+```dart
+Strings.isWhitespace(' \t');
+-> true
+Strings.isWhitespace('a ');
+-> false
+```
+
+## isWhitespaceRune
+
+```dart
+static bool isWhitespaceRune(int rune)
+```
+
+Checks a single code point. The set includes ASCII whitespace, non-breaking spaces, U+180E and U+FEFF (BOM).
+
+```dart
+Strings.isWhitespaceRune(0x00A0);
+-> true
 ```
 
 ## isUpperCase
@@ -58,7 +90,7 @@ Strings.isUpperCase('ABc 1234');
 -> false
 ```
 
-If null is passed the 'string' is treated as an empty string and 'true' is returned.
+If null or an empty string is passed, `true` is returned.
 
 #### extension
 
@@ -101,7 +133,7 @@ The method 'startsWithLowerCase' is available as an extension on the String clas
  static bool startsWithUpperCase(String? string) 
 ```
 
-The 'startsWithUpperCase' method returns true if the 'string' starts with a lower case character.
+The 'startsWithUpperCase' method returns true if the 'string' starts with an upper case character.
 
 ```dart
 Strings.startsWithUpperCase('ABC 1234');
@@ -124,7 +156,7 @@ The method 'startsWithUpperCase' is available as an extension method on the Stri
 ## toCamelCase
 
 ```dart
- static String toCamelCase(String? string, {bool lower = fase});
+ static String toCamelCase(String? string, {bool lower = false});
 ```
 
 The 'toCamelCase' method converts the `string` to camel case.&#x20;
@@ -134,10 +166,10 @@ Strings.toCamelCase('abc_one');
 -> 'AbcOne'
 ```
 
-If 'lower' is set to true then the first chacter of the resulting string is lowercase.
+If `lower` is true then the first character of the resulting string is lowercase.
 
 ```dart
-Strings.toCamelCase('abc_one', lower=true);
+Strings.toCamelCase('abc_one', lower: true);
 -> 'abcOne'
 ```
 
@@ -169,7 +201,7 @@ If null is passed the 'string' is treated as an empty string and an empty string
 
 #### extension
 
-The 'toCapitialised' method is available as an extension on the String class.
+The `toCapitalised` method is available as an extension on the String class.
 
 ```dart
 'john'.toCapitalised();
@@ -191,8 +223,6 @@ Strings.toLowerCase('Abc One');
 
 If null is passed the 'string' is treated as an empty string and an empty string is returned.
 
-##
-
 ## toProperCase
 
 ```dart
@@ -208,17 +238,19 @@ Strings.toProperCase('abc one');
 
 If null is passed the 'string' is treated as an empty string and an empty string is returned.
 
+The method is also available as a `String` extension: `'hello world'.toProperCase()` returns `'Hello World'`.
+
 ## toSnakeCase
 
 ```dart
  static String toSnakeCase(String? string);
 ```
 
-The 'toSnakeCase' method converts the `string` to snake case where each word is separated by an underscore and all characters are lower case.
+The 'toSnakeCase' method lowercases the string and inserts an underscore before uppercase letters following word characters. It preserves spaces; it does not turn spaces into underscores.
 
 ```dart
 Strings.toSnakeCase('abc one');
--> 'abc_one'
+-> 'abc one'
 Strings.toSnakeCase('AbcOne');
 -> 'abc_one'
 ```
